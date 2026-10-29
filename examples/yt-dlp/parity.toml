@@ -24,6 +24,14 @@ name = "version-block"
 pattern = '"_version": \{[^}]*\}'
 replace = '"_version": <VERSION>'
 
+# --extractor-descriptions builds each search extractor's example from random.choice (extractor/common.py), so
+# two runs of yt-dlp itself differ there. Only those examples are hidden; the rest of the listing is compared.
+[[normalize]]
+name = "random-search-example"
+pattern = 'prefix \(e\.g\. "[^"]*"\)'
+replace = 'prefix (e.g. "<RANDOM SEARCH EXAMPLE>")'
+applies_to = ["stdout"]
+
 [rewrite]
 dir = "rewrite"
 binary = "yt-dlp"

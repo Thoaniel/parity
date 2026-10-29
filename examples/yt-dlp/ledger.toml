@@ -4,7 +4,7 @@
 [[item]]
 id = "flag:-t"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:-x"
@@ -14,17 +14,17 @@ status = "missing"
 [[item]]
 id = "flag:--abort-on-error"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--abort-on-unavailable-fragments"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--add-headers"
 kind = "flag"
-status = "missing"
+status = "partial"
 
 [[item]]
 id = "flag:--age-limit"
@@ -39,27 +39,27 @@ status = "missing"
 [[item]]
 id = "flag:--all-formats"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--all-subs"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--allow-dynamic-mpd"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--allow-unplayable-formats"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--ap-list-mso"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--ap-mso"
@@ -84,7 +84,7 @@ status = "missing"
 [[item]]
 id = "flag:--audio-multistreams"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--audio-quality"
@@ -94,12 +94,12 @@ status = "missing"
 [[item]]
 id = "flag:--autonumber-size"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--autonumber-start"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--batch-file"
@@ -109,7 +109,7 @@ status = "missing"
 [[item]]
 id = "flag:--bidi-workaround"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--break-match-filters"
@@ -119,17 +119,17 @@ status = "missing"
 [[item]]
 id = "flag:--break-on-existing"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--break-on-reject"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--break-per-input"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--buffer-size"
@@ -139,22 +139,22 @@ status = "missing"
 [[item]]
 id = "flag:--cache-dir"
 kind = "flag"
-status = "missing"
+status = "partial"
 
 [[item]]
 id = "flag:--check-all-formats"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--check-formats"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--clean-info-json"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--client-certificate"
@@ -199,17 +199,17 @@ status = "missing"
 [[item]]
 id = "flag:--config-locations."
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--console-title"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--continue"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--convert-subs"
@@ -229,7 +229,7 @@ status = "missing"
 [[item]]
 id = "flag:--cookies-from-browser"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--date"
@@ -269,52 +269,52 @@ status = "missing"
 [[item]]
 id = "flag:--downloader-args"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--dump-json"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--dump-pages"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--dump-single-json"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--embed-chapters"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--embed-info-json"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--embed-metadata"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--embed-subs"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--embed-thumbnail"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--enable-file-urls"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--encoding"
@@ -329,22 +329,22 @@ status = "missing"
 [[item]]
 id = "flag:--exec-before-download"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--extract-audio"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--extractor-args"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--extractor-descriptions"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--extractor-retries"
@@ -369,7 +369,7 @@ status = "missing"
 [[item]]
 id = "flag:--flat-playlist"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--force-download-archive)"
@@ -379,32 +379,32 @@ status = "missing"
 [[item]]
 id = "flag:--force-generic-extractor"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--force-ipv4"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--force-ipv6"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--force-keyframes-at-cuts"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--force-overwrites"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--force-write-archive"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--format"
@@ -419,12 +419,12 @@ status = "missing"
 [[item]]
 id = "flag:--format-sort-force"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--format-sort-reset"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--format;"
@@ -439,17 +439,17 @@ status = "missing"
 [[item]]
 id = "flag:--geo-bypass"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--geo-bypass-country"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--geo-bypass-ip-block"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--geo-verification-proxy"
@@ -464,67 +464,67 @@ status = "missing"
 [[item]]
 id = "flag:--get-description"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--get-duration"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--get-filename"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--get-format"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--get-id"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--get-thumbnail"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--get-title"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--get-url"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--help"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--hls-prefer-ffmpeg"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--hls-prefer-native"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--hls-split-discontinuity"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--hls-use-mpegts"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--http-chunk-size"
@@ -534,57 +534,57 @@ status = "missing"
 [[item]]
 id = "flag:--id"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--ignore-config"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--ignore-dynamic-mpd"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--ignore-errors"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--ignore-no-formats-error"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--impersonate"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--js-runtimes"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--keep-fragments"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--keep-video"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--lazy-playlist"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--legacy-server-connect"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--limit-rate"
@@ -594,42 +594,42 @@ status = "missing"
 [[item]]
 id = "flag:--list-extractors"
 kind = "flag"
-status = "missing"
+status = "partial"
 
 [[item]]
 id = "flag:--list-formats"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--list-formats-as-table"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--list-formats-old"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--list-impersonate-targets"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--list-subs"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--list-thumbnails"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--live-from-start"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--load-info-json"
@@ -639,12 +639,12 @@ status = "missing"
 [[item]]
 id = "flag:--load-pages"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--mark-watched"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--match-filters"
@@ -654,7 +654,7 @@ status = "missing"
 [[item]]
 id = "flag:--match-title"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--max-downloads"
@@ -674,7 +674,7 @@ status = "missing"
 [[item]]
 id = "flag:--max-views"
 kind = "flag"
-status = "missing"
+status = "partial"
 
 [[item]]
 id = "flag:--merge-output-format"
@@ -684,7 +684,7 @@ status = "missing"
 [[item]]
 id = "flag:--metadata-from-title"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--min-filesize"
@@ -694,22 +694,22 @@ status = "missing"
 [[item]]
 id = "flag:--min-sleep-interval"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--min-views"
 kind = "flag"
-status = "missing"
+status = "partial"
 
 [[item]]
 id = "flag:--mtime"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--netrc"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--netrc-cmd"
@@ -724,87 +724,87 @@ status = "missing"
 [[item]]
 id = "flag:--newline"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-abort-on-error"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-allow-unplayable-formats"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-audio-multistreams"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-batch-file"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-break-match-filters"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-break-on-existing"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-break-per-input"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-cache-dir"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-check-certificates"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-check-formats"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-clean-info-json"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-colors"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-config-locations"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-continue"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-cookies"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-cookies-from-browser"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-download)"
@@ -814,77 +814,77 @@ status = "missing"
 [[item]]
 id = "flag:--no-download-archive"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-embed-chapters"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-embed-info-json"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-embed-metadata"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-embed-subs"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-embed-thumbnail"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-exec"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-exec-before-download"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-flat-playlist"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-force-keyframes-at-cuts"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-force-overwrites"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-format-sort-force"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-geo-bypass"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-hls-split-discontinuity"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-hls-use-mpegts"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-ignore-errors)"
@@ -894,127 +894,127 @@ status = "missing"
 [[item]]
 id = "flag:--no-ignore-no-formats-error"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-js-runtimes"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-keep-fragments"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-keep-video"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-lazy-playlist"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-live-from-start"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-mark-watched"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-match-filters"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-mtime"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-overwrites"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-part"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-playlist"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-playlist-reverse"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-plugin-dirs"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-post-overwrites"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-prefer-free-formats"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-progress"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-quiet"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-remote-components"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-remove-chapters"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-resize-buffer"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-restrict-filenames"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-simulate"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-split-chapters"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-sponsorblock"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-update"
@@ -1024,57 +1024,57 @@ status = "missing"
 [[item]]
 id = "flag:--no-video-multistreams"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-wait-for-video"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-warnings"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-windows-filenames"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-write-auto-subs"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-write-comments"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-write-description"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-write-info-json"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-write-playlist-metafiles"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-write-subs"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--no-write-thumbnail"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--output"
@@ -1094,7 +1094,7 @@ status = "missing"
 [[item]]
 id = "flag:--part"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--password"
@@ -1109,7 +1109,7 @@ status = "missing"
 [[item]]
 id = "flag:--playlist-end"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--playlist-items"
@@ -1119,17 +1119,17 @@ status = "missing"
 [[item]]
 id = "flag:--playlist-random"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--playlist-reverse"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--playlist-start"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--plugin-dirs"
@@ -1139,27 +1139,27 @@ status = "missing"
 [[item]]
 id = "flag:--post-overwrites"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--postprocessor-args"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--prefer-free-formats"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--prefer-insecure"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--preset-alias"
 kind = "flag"
-status = "missing"
+status = "partial"
 
 [[item]]
 id = "flag:--print"
@@ -1169,7 +1169,7 @@ status = "missing"
 [[item]]
 id = "flag:--print-json"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--print-to-file"
@@ -1179,12 +1179,12 @@ status = "missing"
 [[item]]
 id = "flag:--print-traffic"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--progress"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--progress-delta"
@@ -1204,7 +1204,7 @@ status = "missing"
 [[item]]
 id = "flag:--quiet"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--recode-video"
@@ -1214,12 +1214,12 @@ status = "missing"
 [[item]]
 id = "flag:--referer"
 kind = "flag"
-status = "missing"
+status = "partial"
 
 [[item]]
 id = "flag:--reject-title"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--remote-components"
@@ -1244,12 +1244,12 @@ status = "missing"
 [[item]]
 id = "flag:--resize-buffer"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--restrict-filenames"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--retries"
@@ -1264,17 +1264,17 @@ status = "missing"
 [[item]]
 id = "flag:--rm-cache-dir"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--simulate"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--skip-download"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--skip-playlist-after-errors"
@@ -1284,7 +1284,7 @@ status = "missing"
 [[item]]
 id = "flag:--skip-unavailable-fragments"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--sleep-interval"
@@ -1314,7 +1314,7 @@ status = "missing"
 [[item]]
 id = "flag:--split-chapters"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--sponsorblock-api"
@@ -1349,7 +1349,7 @@ status = "missing"
 [[item]]
 id = "flag:--test"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--throttled-rate"
@@ -1384,12 +1384,12 @@ status = "missing"
 [[item]]
 id = "flag:--use-postprocessor"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--user-agent"
 kind = "flag"
-status = "missing"
+status = "partial"
 
 [[item]]
 id = "flag:--username"
@@ -1399,17 +1399,17 @@ status = "missing"
 [[item]]
 id = "flag:--verbose"
 kind = "flag"
-status = "missing"
+status = "partial"
 
 [[item]]
 id = "flag:--version"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--video-multistreams"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--video-password"
@@ -1419,82 +1419,82 @@ status = "missing"
 [[item]]
 id = "flag:--wait-for-video"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--windows-filenames"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--write-all-thumbnails"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--write-auto-subs"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--write-comments"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--write-description"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--write-desktop-link"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--write-info-json"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--write-link"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--write-pages"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--write-playlist-metafiles"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--write-subs"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--write-thumbnail"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--write-url-link"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--write-webloc-link"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--xattrs"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "flag:--xff"
@@ -1504,7 +1504,7 @@ status = "missing"
 [[item]]
 id = "flag:--yes-playlist"
 kind = "flag"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "fn:yt_dlp/YoutubeDL.py:_catch_unsafe_extension_error"
@@ -1539,7 +1539,7 @@ status = "missing"
 [[item]]
 id = "fn:yt_dlp/__init__.py:validate_options"
 kind = "function"
-status = "missing"
+status = "partial"
 
 [[item]]
 id = "fn:yt_dlp/__init__.py:get_postprocessors"
@@ -2044,7 +2044,7 @@ status = "missing"
 [[item]]
 id = "fn:yt_dlp/downloader/__init__.py:shorten_protocol_name"
 kind = "function"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "fn:yt_dlp/downloader/__init__.py:_get_suitable_downloader"
@@ -24429,7 +24429,7 @@ status = "missing"
 [[item]]
 id = "fn:yt_dlp/utils/_utils.py:sanitize_filename"
 kind = "function"
-status = "missing"
+status = "partial"
 
 [[item]]
 id = "fn:yt_dlp/utils/_utils.py:_sanitize_path_parts"
@@ -24474,7 +24474,7 @@ status = "missing"
 [[item]]
 id = "fn:yt_dlp/utils/_utils.py:escapeHTML"
 kind = "function"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "fn:yt_dlp/utils/_utils.py:netrc_from_content"
@@ -24499,7 +24499,7 @@ status = "missing"
 [[item]]
 id = "fn:yt_dlp/utils/_utils.py:formatSeconds"
 kind = "function"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "fn:yt_dlp/utils/_utils.py:bug_reports_message"
@@ -24684,7 +24684,7 @@ status = "missing"
 [[item]]
 id = "fn:yt_dlp/utils/_utils.py:system_identifier"
 kind = "function"
-status = "missing"
+status = "partial"
 
 [[item]]
 id = "fn:yt_dlp/utils/_utils.py:get_windows_version"
@@ -24719,7 +24719,7 @@ status = "missing"
 [[item]]
 id = "fn:yt_dlp/utils/_utils.py:shell_quote"
 kind = "function"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "fn:yt_dlp/utils/_utils.py:smuggle_url"
@@ -24734,27 +24734,27 @@ status = "missing"
 [[item]]
 id = "fn:yt_dlp/utils/_utils.py:format_decimal_suffix"
 kind = "function"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "fn:yt_dlp/utils/_utils.py:format_bytes"
 kind = "function"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "fn:yt_dlp/utils/_utils.py:lookup_unit_table"
 kind = "function"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "fn:yt_dlp/utils/_utils.py:parse_bytes"
 kind = "function"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "fn:yt_dlp/utils/_utils.py:parse_filesize"
 kind = "function"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "fn:yt_dlp/utils/_utils.py:parse_count"
@@ -24864,7 +24864,7 @@ status = "missing"
 [[item]]
 id = "fn:yt_dlp/utils/_utils.py:strftime_or_none"
 kind = "function"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "fn:yt_dlp/utils/_utils.py:parse_duration"
@@ -24884,17 +24884,17 @@ status = "missing"
 [[item]]
 id = "fn:yt_dlp/utils/_utils.py:_get_exe_version_output"
 kind = "function"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "fn:yt_dlp/utils/_utils.py:detect_exe_version"
 kind = "function"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "fn:yt_dlp/utils/_utils.py:get_exe_version"
 kind = "function"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "fn:yt_dlp/utils/_utils.py:frange"
@@ -25074,7 +25074,7 @@ status = "missing"
 [[item]]
 id = "fn:yt_dlp/utils/_utils.py:get_compatible_ext"
 kind = "function"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "fn:yt_dlp/utils/_utils.py:urlhandle_detect_ext"
@@ -25099,27 +25099,27 @@ status = "missing"
 [[item]]
 id = "fn:yt_dlp/utils/_utils.py:determine_protocol"
 kind = "function"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "fn:yt_dlp/utils/_utils.py:render_table"
 kind = "function"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "fn:yt_dlp/utils/_utils.py:_match_one"
 kind = "function"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "fn:yt_dlp/utils/_utils.py:match_str"
 kind = "function"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "fn:yt_dlp/utils/_utils.py:match_filter_func"
 kind = "function"
-status = "missing"
+status = "partial"
 
 [[item]]
 id = "fn:yt_dlp/utils/_utils.py:download_range_func"
@@ -25279,7 +25279,7 @@ status = "missing"
 [[item]]
 id = "fn:yt_dlp/utils/_utils.py:format_field"
 kind = "function"
-status = "missing"
+status = "partial"
 
 [[item]]
 id = "fn:yt_dlp/utils/_utils.py:clean_podcast_url"
@@ -25334,12 +25334,12 @@ status = "missing"
 [[item]]
 id = "fn:yt_dlp/utils/_utils.py:remove_terminal_sequences"
 kind = "function"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "fn:yt_dlp/utils/_utils.py:join_nonempty"
 kind = "function"
-status = "missing"
+status = "partial"
 
 [[item]]
 id = "fn:yt_dlp/utils/_utils.py:scale_thumbnails_to_max_format_width"
@@ -25419,12 +25419,12 @@ status = "missing"
 [[item]]
 id = "fn:yt_dlp/utils/_utils.py:FormatSorter"
 kind = "function"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "fn:yt_dlp/utils/_utils.py:filesize_from_tbr"
 kind = "function"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "fn:yt_dlp/utils/_utils.py:_request_dump_filename"
@@ -25454,12 +25454,12 @@ status = "missing"
 [[item]]
 id = "fn:yt_dlp/utils/networking.py:random_user_agent"
 kind = "function"
-status = "missing"
+status = "partial"
 
 [[item]]
 id = "fn:yt_dlp/utils/networking.py:HTTPHeaderDict"
 kind = "function"
-status = "missing"
+status = "partial"
 
 [[item]]
 id = "fn:yt_dlp/utils/networking.py:clean_proxies"
@@ -25469,7 +25469,7 @@ status = "missing"
 [[item]]
 id = "fn:yt_dlp/utils/networking.py:clean_headers"
 kind = "function"
-status = "missing"
+status = "ported"
 
 [[item]]
 id = "fn:yt_dlp/utils/networking.py:remove_dot_segments"
@@ -25504,7 +25504,7 @@ status = "missing"
 [[item]]
 id = "fn:yt_dlp/utils/traversal.py:traverse_obj"
 kind = "function"
-status = "missing"
+status = "partial"
 
 [[item]]
 id = "fn:yt_dlp/utils/traversal.py:value"

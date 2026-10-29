@@ -8,6 +8,7 @@ name = "yt-dlp"
 path = "src/main.rs"
 
 [dependencies]
+regex = "1.13.1"
 
 [profile.release]
 lto = "thin"

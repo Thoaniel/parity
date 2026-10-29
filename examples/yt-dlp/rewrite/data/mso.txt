@@ -1,0 +1,435 @@
+DTV             DIRECTV
+ATT               AT&T U-verse
+ATTOTT            DIRECTV NOW
+RCN               RCN
+Rogers            Rogers
+Comcast_SSO       Comcast XFINITY
+TWC               Time Warner Cable | Spectrum
+Brighthouse       Bright House Networks | Spectrum
+Charter_Direct    Charter Spectrum
+Spectrum          Spectrum
+Philo             Philo
+Verizon           Verizon FiOS
+Fubo              Fubo
+Cablevision       Optimum/Cablevision
+thr030            3 Rivers Communications
+com140            Access Montana
+acecommunications AcenTek
+acm010            Acme Communications
+ada020            Adams Cable Service
+alb020            Albany Mutual Telephone
+algona            Algona Municipal Utilities
+allwest           All West Communications
+all025            Allen's Communications
+spl010            Alliance Communications
+all070            ALLO Communications
+alpine            Alpine Communications
+hun015            American Broadband
+nwc010            American Broadband Missouri
+com130-02         American Community Networks
+com130-01         American Warrior Networks
+tom020            Amherst Telephone/Tomorrow Valley
+tvc020            Andycable
+arkwest           Arkwest Communications
+art030            Arthur Mutual Telephone Company
+arvig             Arvig
+nttcash010        Ashland Home Net
+astound           Astound (now Wave)
+dix030            ATC Broadband
+ara010            ATC Communications
+she030-02         Ayersville Communications
+baldwin           Baldwin Lightstream
+bal040            Ballard TV
+cit025            Bardstown Cable TV
+bay030            Bay Country Communications
+tel095            Beaver Creek Cooperative Telephone
+bea020            Beaver Valley Cable
+bee010            Bee Line Cable
+wir030            Beehive Broadband
+bra020            BELD
+bel020            Bellevue Municipal Cable
+vol040-01         Ben Lomand Connect / BLTV
+bev010            BEVCOMM
+big020            Big Sandy Broadband
+ble020            Bledsoe Telephone Cooperative
+bvt010            Blue Valley Tele-Communications
+bra050            Brandenburg Telephone Co.
+bte010            Bristol Tennessee Essential Services
+annearundel       Broadstripe
+btc010            BTC Communications
+btc040            BTC Vision - Nahunta
+bul010            Bulloch Telephone Cooperative
+but010            Butler-Bremer Communications
+tel160-csp        C Spire SNAP
+csicable          Cable Services Inc.
+cableamerica      CableAmerica
+cab038            CableSouth Media 3
+weh010-camtel     Cam-Tel Company
+car030            Cameron Communications
+canbytel          Canby Telcom
+crt020            CapRock Tv
+car050            Carnegie Cable
+cas               CAS Cable
+casscomm          CASSCOMM
+mid180-02         Catalina Broadband Solutions
+cccomm            CC Communications
+nttccde010        CDE Lightband
+cfunet            Cedar Falls Utilities
+dem010-01         Celect-Bloomer Telephone Area
+dem010-02         Celect-Bruce Telephone Area
+dem010-03         Celect-Citizens Connected Area
+dem010-04         Celect-Elmwood/Spring Valley Area
+dem010-06         Celect-Mosaic Telecom
+dem010-05         Celect-West WI Telephone Area
+net010-02         Cellcom/Nsight Telservices
+cen100            CentraCom
+nttccst010        Central Scott / CSTV
+cha035            Chaparral CableVision
+cha050            Chariton Valley Communication Corporation, Inc.
+cha060            Chatmoss Cablevision
+nttcche010        Cherokee Communications
+che050            Chesapeake Bay Communications
+cimtel            Cim-Tel Cable, LLC.
+cit180            Citizens Cablevision - Floyd, VA
+cit210            Citizens Cablevision, Inc.
+cit040            Citizens Fiber
+cit250            Citizens Mutual
+war040            Citizens Telephone Corporation
+wat025            City Of Monroe
+wadsworth         CityLink
+nor100            CL Tel
+cla010            Clarence Telephone and Cedar Communications
+ser060            Clear Choice Communications
+tac020            Click! Cable TV
+war020            CLICK1.NET
+cml010            CML Telephone Cooperative Association
+cns               CNS
+com160            Co-Mo Connect
+coa020            Coast Communications
+coa030            Coaxial Cable TV
+mid055            Cobalt TV (Mid-State Community TV)
+col070            Columbia Power & Water Systems
+col080            Columbus Telephone
+nor105            Communications 1 Cablevision, Inc.
+com150            Community Cable & Broadband
+com020            Community Communications Company
+coy010            commZoom
+com025            Complete Communication Services
+cat020            Comporium
+com071            ComSouth Telesys
+consolidatedcable Consolidated
+conwaycorp        Conway Corporation
+coo050            Coon Valley Telecommunications Inc
+coo080            Cooperative Telephone Company
+cpt010            CP-TEL
+cra010            Craw-Kan Telephone
+crestview         Crestview Cable Communications
+cross             Cross TV
+cro030            Crosslake Communications
+ctc040            CTC - Brainerd MN
+phe030            CTV-Beam - East Alabama
+cun010            Cunningham Telephone & Cable
+dpc010            D & P Communications
+dak030            Dakota Central Telecommunications
+nttcdel010        Delcambre Telephone LLC
+tel160-del        Delta Telephone Company
+sal040            DiamondNet
+ind060-dc         Direct Communications
+doy010            Doylestown Cable TV
+dic010            DRN
+dtc020            DTC
+dtc010            DTC Cable (Delhi)
+dum010            Dumont Telephone Company
+dun010            Dunkerton Telephone Cooperative
+cci010            Duo County Telecom
+eagle             Eagle Communications
+weh010-east       East Arkansas Cable TV
+eatel             EATEL Video, LLC
+ell010            ECTA
+emerytelcom       Emery Telcom Video LLC
+nor200            Empire Access
+endeavor          Endeavor Communications
+sun045            Enhanced Telecommunications Corporation
+mid030            enTouch
+epb020            EPB Smartnet
+jea010            EPlus Broadband
+com065            ETC
+ete010            Etex Communications
+fbc-tele          F&B Communications
+fal010            Falcon Broadband
+fam010            FamilyView CableVision
+far020            Farmers Mutual Telephone Company
+fay010            Fayetteville Public Utilities
+sal060            fibrant
+fid010            Fidelity Communications
+for030            FJ Communications
+fli020            Flint River Communications
+far030            FMT - Jesup
+foo010            Foothills Communications
+for080            Forsyth CableNet
+fbcomm            Frankfort Plant Board
+tel160-fra        Franklin Telephone Company
+nttcftc010        FTC
+fullchannel       Full Channel, Inc.
+gar040            Gardonville Cooperative Telephone Association
+gbt010            GBT Communications, Inc.
+tec010            Genuine Telecom
+clr010            Giant Communications
+gla010            Glasgow EPB
+gle010            Glenwood Telecommunications
+gra060            GLW Broadband Inc.
+goldenwest        Golden West Cablevision
+vis030            Grantsburg Telcom
+gpcom             Great Plains Communications
+gri010            Gridley Cable Inc
+hbc010            H&B Cable Services
+hae010            Haefele TV Inc.
+htc010            Halstad Telephone Company
+har005            Harlan Municipal Utilities
+har020            Hart Communications
+ced010            Hartelco TV
+hea040            Heart of Iowa Communications Cooperative
+htc020            Hickory Telephone Company
+nttchig010        Highland Communication Services
+hig030            Highland Media
+spc010            Hilliary Communications
+hin020            Hinton CATV Co.
+hometel           HomeTel Entertainment, Inc.
+hoodcanal         Hood Canal Communications
+weh010-hope       Hope - Prescott Cable TV
+horizoncable      Horizon Cable TV, Inc.
+hor040            Horizon Chillicothe Telephone
+htc030            HTC Communications Co. - IL
+htccomm           HTC Communications, Inc. - IA
+wal005            Huxley Communications
+imon              ImOn Communications
+ind040            Independence Telecommunications
+rrc010            Inland Networks
+stc020            Innovative Cable TV St Croix
+car100            Innovative Cable TV St Thomas-St John
+icc010            Inside Connect Cable
+int100            Integra Telecom
+int050            Interstate Telecommunications Coop
+irv010            Irvine Cable
+k2c010            K2 Communications
+kal010            Kalida Telephone Company, Inc.
+kal030            Kalona Cooperative Telephone Company
+kmt010            KMTelecom
+kpu010            KPU Telecommunications
+kuh010            Kuhn Communications, Inc.
+lak130            Lakeland Communications
+lan010            Langco
+lau020            Laurel Highland Total Communications, Inc.
+leh010            Lehigh Valley Cooperative Telephone
+bra010            Limestone Cable/Bracken Cable
+loc020            LISCO
+lit020            Litestream
+tel140            LivCom
+loc010            LocalTel Communications
+weh010-longview   Longview - Kilgore Cable TV
+lon030            Lonsdale Video Ventures, LLC
+lns010            Lost Nation-Elwood Telephone Co.
+nttclpc010        LPC Connect
+lumos             Lumos Networks
+madison           Madison Communications
+mad030            Madison County Cable Inc.
+nttcmah010        Mahaska Communication Group
+mar010            Marne & Elk Horn Telephone Company
+mcc040            McClure Telephone Co.
+mctv              MCTV
+merrimac          Merrimac Communications Ltd.
+metronet          Metronet
+mhtc              MHTC
+midhudson         Mid-Hudson Cable
+midrivers         Mid-Rivers Communications
+mid045            Midstate Communications
+mil080            Milford Communications
+min030            MINET
+nttcmin010        Minford TV
+san040-02         Mitchell Telecom
+mlg010            MLGC
+mon060            Mon-Cre TVE
+mou110            Mountain Telephone
+mou050            Mountain Village Cable
+mtacomm           MTA Communications, LLC
+mtc010            MTC Cable
+med040            MTC Technologies
+man060            MTCC
+mtc030            MTCO Communications
+mul050            Mulberry Telecommunications
+mur010            Murray Electric System
+musfiber          MUS FiberNET
+mpw               Muscatine Power & Water
+nttcsli010        myEVTV.com
+nor115            NCC
+nor260            NDTC
+nctc              Nebraska Central Telecom, Inc.
+nel020            Nelsonville TV Cable
+nem010            Nemont
+new075            New Hope Telephone Cooperative
+nor240            NICP
+cic010            NineStar Connect
+nktelco           NKTelco
+nortex            Nortex Communications
+nor140            North Central Telephone Cooperative
+nor030            Northland Communications
+nor075            Northwest Communications
+nor125            Norwood Light Broadband
+net010            Nsight Telservices
+dur010            Ntec
+nts010            NTS Communications
+new045            NU-Telecom
+nulink            NuLink
+jam030            NVC
+far035            OmniTel Communications
+onesource         OneSource Communications
+cit230            Opelika Power Services
+daltonutilities   OptiLink
+mid140            OPTURA
+ote010            OTEC Communication Company
+cci020            Packerland Broadband
+pan010            Panora Telco/Guthrie Center Communications
+otter             Park Region Telephone & Otter Tail Telcom
+mid050            Partner Communications Cooperative
+fib010            Pathway
+paulbunyan        Paul Bunyan Communications
+pem020            Pembroke Telephone Company
+mck010            Peoples Rural Telephone Cooperative
+pul010            PES Energize
+phi010            Philippi Communications System
+phonoscope        Phonoscope Cable
+pin070            Pine Belt Communications, Inc.
+weh010-pine       Pine Bluff Cable TV
+pin060            Pineland Telephone Cooperative
+cam010            Pinpoint Communications
+pio060            Pioneer Broadband
+pioncomm          Pioneer Communications
+pioneer           Pioneer DTV
+pla020            Plant TiftNet, Inc.
+par010            PLWC
+pro035            PMT
+vik011            Polar Cablevision
+pottawatomie      Pottawatomie Telephone Co.
+premiercomm       Premier Communications
+psc010            PSC
+pan020            PTCI
+qco010            QCOL
+qua010            Quality Cablevision
+rad010            Radcliffe Telephone Company
+car040            Rainbow Communications
+rai030            Rainier Connect
+ral010            Ralls Technologies
+rct010            RC Technologies
+red040            Red River Communications
+ree010            Reedsburg Utility Commission
+mol010            Reliance Connects- Oregon
+res020            Reserve Telecommunications
+weh010-resort     Resort TV Cable
+rld010            Richland Grant Telephone Cooperative, Inc.
+riv030            River Valley Telecommunications Coop
+rockportcable     Rock Port Cablevision
+rsf010            RS Fiber
+rtc               RTC Communication Corp
+res040            RTC-Reservation Telephone Coop.
+rte010            RTEC Communications
+stc010            S&T
+san020            San Bruno Cable TV
+san040-01         Santel
+sav010            SCI Broadband-Savage Communications Inc.
+sco050            Scottsboro Electric Power Board
+scr010            Scranton Telephone Company
+selco             SELCO
+she010            Shentel
+she030            Sherwood Mutual Telephone Association, Inc.
+ind060-ssc        Silver Star Communications
+sjoberg           Sjoberg's Inc.
+sou025            SKT
+sky050            SkyBest TV
+nttcsmi010        Smithville Communications
+woo010            Solarus
+sou075            South Central Rural Telephone Cooperative
+sou065            South Holt Cablevision, Inc.
+sou035            South Slope Cooperative Communications
+spa020            Spanish Fork Community Network
+spe010            Spencer Municipal Utilities
+spi005            Spillway Communications, Inc.
+srt010            SRT
+cccsmc010         St. Maarten Cable TV
+sta025            Star Communications
+sco020            STE
+uin010            STRATA Networks
+sum010            Sumner Cable TV
+pie010            Surry TV/PCSI TV
+swa010            Swayzee Communications
+sweetwater        Sweetwater Cable Television Co
+weh010-talequah   Tahlequah Cable TV
+tct               TCT
+tel050            Tele-Media Company
+com050            The Community Agency
+thr020            Three River
+cab140            Town & Country Technologies
+tra010            Trans-Video
+tre010            Trenton TV Cable Company
+tcc               Tri County Communications Cooperative
+tri025            TriCounty Telecom
+tri110            TrioTel Communications, Inc.
+tro010            Troy Cablevision, Inc.
+tsc               TSC
+cit220            Tullahoma Utilities Board
+tvc030            TV Cable of Rensselaer
+tvc015            TVC Cable
+cab180            TVision
+twi040            Twin Lakes
+tvtinc            Twin Valley
+uis010            Union Telephone Company
+uni110            United Communications - TN
+uni120            United Services
+uss020            US Sonet
+cab060            USA Communications
+she005            USA Communications/Shellsburg, IA
+val040            Valley TeleCom Group
+val025            Valley Telecommunications
+val030            Valparaiso Broadband
+cla050            Vast Broadband
+sul015            Venture Communications Cooperative, Inc.
+ver025            Vernon Communications Co-op
+weh010-vicksburg  Vicksburg Video
+vis070            Vision Communications
+volcanotel        Volcano Vision, Inc.
+vol040-02         VolFirst / BLTV
+ver070            VTel
+nttcvtx010        VTX1
+bci010-02         Vyve Broadband
+wab020            Wabash Mutual Telephone
+waitsfield        Waitsfield Cable
+wal010            Walnut Communications
+wavebroadband     Wave
+wav030            Waverly Communications Utility
+wbi010            WBI
+web020            Webster-Calhoun Cooperative Telephone Association
+wes005            West Alabama TV Cable
+carolinata        West Carolina Communications
+wct010            West Central Telephone Association
+wes110            West River Cooperative Telephone Company
+ani030            WesTel Systems
+westianet         Western Iowa Networks
+nttcwhi010        Whidbey Telecom
+weh010-white      White County Cable TV
+wes130            Wiatel
+wik010            Wiktel
+wil070            Wilkes Communications, Inc./RiverStreet Networks
+wil015            Wilson Communications
+win010            Windomnet/SMBS
+win090            Windstream Cable TV
+wcta              Winnebago Cooperative Telecom Association
+wtc010            WTC
+wil040            WTC Communications, Inc.
+wya010            Wyandotte Cable
+hin020-02         X-Stream Services
+xit010            XIT Communications
+yel010            Yelcot Communications
+mid180-01         yondoo
+cou060            Zito Media
+slingtv           Sling TV
+Suddenlink        Suddenlink
+AlticeOne         Optimum TV
