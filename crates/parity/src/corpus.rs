@@ -91,6 +91,13 @@ pub fn read(dir: &Path) -> Result<(CaseRecord, Observed)> {
             record.format
         );
     }
+    if dir.file_name().is_some_and(|n| *n != *record.input.name) {
+        bail!(
+            "{}: records case {:?}, not the folder's",
+            dir.display(),
+            record.input.name
+        );
+    }
     // A corpus can come from anyone: its input is checked like cases.toml before anything runs from it.
     check_case_name(&record.input.name)
         .and_then(|()| {
@@ -179,8 +186,10 @@ mod tests {
             name: "a".into(),
             ..Default::default()
         };
-        write(dir.path(), &input, &observed, "x").unwrap();
-        std::fs::write(dir.path().join("files/a"), "2").unwrap();
-        assert!(read(dir.path()).is_err());
+        let case = dir.path().join("a");
+        write(&case, &input, &observed, "x").unwrap();
+        assert!(read(&case).is_ok());
+        std::fs::write(case.join("files/a"), "2").unwrap();
+        assert!(read(&case).is_err());
     }
 }

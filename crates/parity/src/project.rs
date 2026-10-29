@@ -84,13 +84,41 @@ pub struct CaseInput {
     pub name: String,
     #[serde(default)]
     pub args: Vec<String>,
-    #[serde(default)]
+    #[serde(default, skip_serializing_if = "String::is_empty")]
     pub stdin: String,
     /// Relative path → content, written before the run.
-    #[serde(default)]
+    #[serde(default, skip_serializing_if = "BTreeMap::is_empty")]
     pub files: BTreeMap<String, String>,
-    #[serde(default)]
+    #[serde(default, skip_serializing_if = "BTreeMap::is_empty")]
     pub env: BTreeMap<String, String>,
+}
+
+/// Appends cases to cases.toml as `[[case]]` blocks, skipping names it already has. Returns how many were added.
+pub fn append_cases(layout: &Layout, cases: &[CaseInput], comment: &str) -> Result<usize> {
+    #[derive(Serialize)]
+    struct Out<'a> {
+        case: Vec<&'a CaseInput>,
+    }
+    let existing: BTreeSet<String> = if layout.cases_file().exists() {
+        layout.load_cases()?.into_iter().map(|c| c.name).collect()
+    } else {
+        BTreeSet::new()
+    };
+    let new: Vec<&CaseInput> = cases
+        .iter()
+        .filter(|c| !existing.contains(&c.name))
+        .collect();
+    if new.is_empty() {
+        return Ok(0);
+    }
+    let mut text = std::fs::read_to_string(layout.cases_file()).unwrap_or_default();
+    if !text.is_empty() && !text.ends_with('\n') {
+        text.push('\n');
+    }
+    text.push_str(&format!("\n# {comment}\n"));
+    text.push_str(&toml::to_string(&Out { case: new.clone() })?);
+    std::fs::write(layout.cases_file(), text)?;
+    Ok(new.len())
 }
 
 #[derive(Deserialize)]

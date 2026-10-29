@@ -1,5 +1,7 @@
 mod compare;
 mod corpus;
+mod discover;
+mod mcp;
 mod normalize;
 mod project;
 mod report;
@@ -46,9 +48,29 @@ enum Command {
         /// Diff lines shown per divergence.
         #[arg(long, default_value_t = 40)]
         diff_lines: usize,
+        /// Replay recorded cases that cases.toml doesn't define identically (a corpus from someone else). Their
+        /// arguments, stdin, files and environment run as recorded, LD_PRELOAD and the like included.
+        #[arg(long)]
+        trust_corpus: bool,
     },
     /// Print what the original did in one recorded case.
     Show { case: String },
+    /// Map what a program exposes (flags, subcommands, env vars, paths, URLs) from its file, its source and its
+    /// own --help. Default program: the project's original.
+    Discover {
+        program: Option<String>,
+        /// Only read files; don't run the program's --help.
+        #[arg(long)]
+        no_run: bool,
+        /// Add a case for each subcommand and plain flag found to cases.toml.
+        #[arg(long)]
+        write_cases: bool,
+        /// Where to write the surface map (default: surface.json in the project).
+        #[arg(long)]
+        json: Option<PathBuf>,
+    },
+    /// Serve Parity's tools over the Model Context Protocol on stdin/stdout, for any agent.
+    Mcp,
 }
 
 fn main() -> ExitCode {
@@ -71,8 +93,16 @@ fn run(cli: Cli) -> Result<ExitCode> {
             cases,
             json,
             diff_lines,
-        } => replay(&layout, candidate, &cases, json, diff_lines),
+            trust_corpus,
+        } => replay(&layout, candidate, &cases, json, diff_lines, trust_corpus),
         Command::Show { case } => show(&layout, &case),
+        Command::Discover {
+            program,
+            no_run,
+            write_cases,
+            json,
+        } => discover(&layout, program, no_run, write_cases, json),
+        Command::Mcp => mcp::serve().map(|()| ExitCode::SUCCESS),
     }
 }
 
@@ -125,8 +155,34 @@ fn replay(
     only: &[String],
     json: Option<PathBuf>,
     diff_lines: usize,
+    trust_corpus: bool,
 ) -> Result<ExitCode> {
+    let report = replay_report(layout, candidate, only, trust_corpus)?;
+    print!("{}", report.render(diff_lines));
+    if let Some(path) = json {
+        std::fs::write(&path, serde_json::to_vec_pretty(&report)?)?;
+    }
+    Ok(if report.matching() == report.cases.len() {
+        ExitCode::SUCCESS
+    } else {
+        ExitCode::from(1)
+    })
+}
+
+/// Runs the candidate on the recorded cases and compares; shared by `parity replay` and the MCP `replay` tool.
+fn replay_report(
+    layout: &Layout,
+    candidate: Option<String>,
+    only: &[String],
+    trust_corpus: bool,
+) -> Result<report::Report> {
     let project = layout.load_project()?;
+    // The project's own cases are trusted; a recording that differs from them came from elsewhere.
+    let own = if layout.cases_file().exists() {
+        layout.load_cases()?
+    } else {
+        Vec::new()
+    };
     let candidate = match candidate {
         Some(program) => Program {
             program,
@@ -145,6 +201,12 @@ fn replay(
     let mut results = Vec::new();
     for name in &names {
         let (record, expected) = corpus::read(&layout.case_dir(name))?;
+        if !trust_corpus && !own.contains(&record.input) {
+            bail!(
+                "case {name}: the recording's input isn't the one in cases.toml. Check it with \
+                 `parity show {name}` and replay with --trust-corpus if it is yours"
+            );
+        }
         let actual = sandbox::run(&candidate, &record.input, &project.sandbox)
             .with_context(|| format!("case {name}"))?;
         results.push(report::CaseResult {
@@ -154,20 +216,90 @@ fn replay(
             candidate_ms: actual.duration.as_millis() as u64,
         });
     }
-    let report = report::Report {
+    Ok(report::Report {
         original: project.original.program.clone(),
         candidate: candidate.program.clone(),
         cases: results,
-    };
-    print!("{}", report.render(diff_lines));
-    if let Some(path) = json {
-        std::fs::write(&path, serde_json::to_vec_pretty(&report)?)?;
-    }
-    Ok(if report.matching() == report.cases.len() {
-        ExitCode::SUCCESS
-    } else {
-        ExitCode::from(1)
     })
+}
+
+fn discover(
+    layout: &Layout,
+    program: Option<String>,
+    no_run: bool,
+    write_cases: bool,
+    json: Option<PathBuf>,
+) -> Result<ExitCode> {
+    let project = layout
+        .project_file()
+        .exists()
+        .then(|| layout.load_project())
+        .transpose()?;
+    let program = match (program, &project) {
+        (Some(p), _) => Program {
+            program: p,
+            args: Vec::new(),
+        },
+        (None, Some(p)) => p.original.clone(),
+        (None, None) => bail!("name a program, or run in a project folder"),
+    };
+    let sandbox_cfg = project.map(|p| p.sandbox).unwrap_or_default();
+    let opts = discover::Options {
+        run_help: !no_run,
+        max_subcommands: 50,
+    };
+    let s = discover::discover(&program, &sandbox_cfg, &opts)?;
+    println!(
+        "{} ({}{})",
+        s.path,
+        s.kind,
+        s.interpreter
+            .as_ref()
+            .map(|i| format!(", {i}"))
+            .unwrap_or_default()
+    );
+    if let Some(b) = &s.binary {
+        println!(
+            "  {} {}-bit, {} libraries, hints: {}",
+            b.architecture,
+            b.bits,
+            b.libraries.len(),
+            b.hints.join(", ")
+        );
+    }
+    println!(
+        "  {} flags, {} subcommands",
+        s.flags.len(),
+        s.subcommands.len()
+    );
+    println!(
+        "  {} env vars, {} paths, {} urls",
+        s.env_vars.len(),
+        s.paths.len(),
+        s.urls.len()
+    );
+    if !s.sources.is_empty() {
+        println!("  {} source files read", s.sources.len());
+    }
+    let out = json.or_else(|| {
+        layout
+            .project_file()
+            .exists()
+            .then(|| layout.root.join("surface.json"))
+    });
+    if let Some(path) = out {
+        std::fs::write(&path, serde_json::to_vec_pretty(&s)?)?;
+        println!("wrote {}", path.display());
+    }
+    if write_cases {
+        let added = project::append_cases(
+            layout,
+            &discover::suggested_cases(&s),
+            "generated by `parity discover`",
+        )?;
+        println!("added {added} cases to {}", layout.cases_file().display());
+    }
+    Ok(ExitCode::SUCCESS)
 }
 
 fn show(layout: &Layout, case: &str) -> Result<ExitCode> {

@@ -14,7 +14,7 @@ keeps following upstream releases.
 The same tools make any AI agent more capable: eyes to see what code really does (built-in reverse engineering, a
 flight recorder for your machine, recordings of real behaviour) and a judge that says exactly what is still wrong.
 
-**Status:** M0, record and replay for command-line programs. Read the [spec](docs/spec-v1.md) for where it is going.
+**Status:** M1, record and replay for command-line programs, surface maps and an MCP server. Read the [spec](docs/spec-v1.md) for where it is going.
 
 ## Try it (M0)
 
@@ -31,6 +31,27 @@ installed, a read-only system and no network. All of that is a default for repro
 `isolation = "none"`, `network = true` and `inherit_env = true` in `parity.toml` run against the real system.
 Honest nondeterminism (timestamps, PIDs) is hidden by normalizers you declare in `parity.toml`; nothing is ignored
 silently.
+
+## Discover (M1)
+
+```sh
+parity discover yt-dlp                       # flags, subcommands, env vars, paths, URLs
+parity discover -C jq-project --write-cases  # the same for the project's original, plus a case per flag/subcommand
+```
+
+The surface map comes from the program's file (ELF, PE and Mach-O via `parity-rea`: libraries, imports, toolchain
+hints, strings), from its source when it is a Python or Node script (argparse, optparse, click, commander), and from
+its own `--help` run in the sandbox.
+
+## For agents: `parity mcp`
+
+Parity's tools over the Model Context Protocol: `binary_overview`, `list_sections`, `list_symbols` (demangled
+Rust and C++), `list_strings`, `disassemble` (x86, ARM, AArch64, RISC-V, MIPS, PowerPC, SPARC), `surface_map`, and
+`replay`, the judge that tells an agent exactly where its rewrite still differs from the original.
+
+```sh
+claude mcp add parity -- parity mcp
+```
 
 Flagship target: [yt-dlp](https://github.com/yt-dlp/yt-dlp).
 
