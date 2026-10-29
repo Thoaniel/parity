@@ -63,7 +63,7 @@ pub fn discover(program: &Program, sandbox_cfg: &SandboxConfig, opts: &Options) 
         s.kind = "script".into();
         let script = String::from_utf8_lossy(&data).into_owned();
         if interpreter.contains("python") {
-            for file in python_sources(&script, &interpreter) {
+            for file in python_sources(&script, &interpreter, &path) {
                 if let Ok(text) = std::fs::read_to_string(&file) {
                     s.sources.push(file.display().to_string());
                     texts.push(text);
@@ -311,43 +311,77 @@ fn merge_flags(flags: Vec<Flag>) -> Vec<Flag> {
 }
 
 /// The first-party Python package a console script runs: the top-level module of its `from X import` /
-/// `import X` lines, located with the script's own interpreter (`find_spec` of a top-level name imports
-/// nothing), then every `.py` file under it.
-fn python_sources(script: &str, interpreter: &str) -> Vec<PathBuf> {
+/// `import X` lines, found by looking (never by running anything: the shebang comes from the file being
+/// analysed) next to the script and in the site-packages of the interpreter's prefix, the system and the user,
+/// then every `.py` file under it.
+fn python_sources(script: &str, interpreter: &str, script_path: &Path) -> Vec<PathBuf> {
     static IMPORT: LazyLock<Regex> = LazyLock::new(|| {
         Regex::new(r"(?m)^\s*(?:from|import)\s+([A-Za-z_][A-Za-z0-9_]*)").unwrap()
     });
     const STDLIB: &[&str] = &["sys", "os", "re", "importlib", "runpy", "__future__"];
-    let python = interpreter.split_whitespace().last().unwrap_or("python3");
-    let python = if python == "/usr/bin/env" {
-        "python3"
-    } else {
-        python
-    };
+    let roots = python_roots(interpreter, script_path);
     let mut out = Vec::new();
     for c in IMPORT.captures_iter(script) {
         let module = &c[1];
         if STDLIB.contains(&module) {
             continue;
         }
-        let Ok(o) = std::process::Command::new(python)
-            .args(["-I", "-c", "import importlib.util,sys;s=importlib.util.find_spec(sys.argv[1]);print(s.origin if s else '')", module])
-            .output()
-        else {
-            continue;
-        };
-        let origin = String::from_utf8_lossy(&o.stdout).trim().to_string();
-        let origin = Path::new(&origin);
-        let root = if origin.file_name().is_some_and(|n| n == "__init__.py") {
-            origin.parent()
-        } else {
-            Some(origin)
-        };
-        if let Some(root) = root.filter(|r| r.exists()) {
-            out.extend(walk(root, "py"));
+        let found = roots.iter().find_map(|root| {
+            let package = root.join(module);
+            let single = root.join(format!("{module}.py"));
+            if package.join("__init__.py").is_file() {
+                Some(package)
+            } else if single.is_file() {
+                Some(single)
+            } else {
+                None
+            }
+        });
+        if let Some(found) = found {
+            out.extend(walk(&found, "py"));
         }
     }
+    out.sort();
+    out.dedup();
     out
+}
+
+/// Where a script's imports can live: its own folder, then `lib/python3*/{site,dist}-packages` under the
+/// interpreter's prefix (a venv's, when the shebang points into one), /usr/local, /usr and ~/.local.
+fn python_roots(interpreter: &str, script_path: &Path) -> Vec<PathBuf> {
+    let mut prefixes: Vec<PathBuf> = Vec::new();
+    if let Some(exe) = interpreter.split_whitespace().next().map(Path::new)
+        && exe.is_absolute()
+        && !exe.ends_with("env")
+        && let Some(prefix) = exe.parent().and_then(Path::parent)
+    {
+        prefixes.push(prefix.to_path_buf());
+    }
+    prefixes.extend(["/usr/local", "/usr"].map(PathBuf::from));
+    if let Some(home) = std::env::var_os("HOME") {
+        prefixes.push(PathBuf::from(home).join(".local"));
+    }
+    let mut roots: Vec<PathBuf> = script_path
+        .parent()
+        .map(Path::to_path_buf)
+        .into_iter()
+        .collect();
+    for prefix in prefixes {
+        let Ok(entries) = std::fs::read_dir(prefix.join("lib")) else {
+            continue;
+        };
+        let mut versions: Vec<PathBuf> = entries
+            .filter_map(|e| e.ok())
+            .filter(|e| e.file_name().to_string_lossy().starts_with("python3"))
+            .map(|e| e.path())
+            .collect();
+        versions.sort();
+        for v in versions.into_iter().rev() {
+            roots.extend(["site-packages", "dist-packages"].map(|d| v.join(d)));
+        }
+    }
+    roots.retain(|r| r.is_dir());
+    roots
 }
 
 /// A Node script's package: the folder with the nearest package.json above the real script, without
