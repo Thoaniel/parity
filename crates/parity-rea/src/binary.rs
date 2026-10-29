@@ -3,9 +3,9 @@
 
 use anyhow::{Context, Result};
 use object::{Object, ObjectSection, ObjectSymbol};
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 
-#[derive(Debug, Serialize)]
+#[derive(Debug, Deserialize, Serialize)]
 pub struct Overview {
     pub format: String,
     pub architecture: String,
@@ -25,13 +25,13 @@ pub struct Overview {
     pub hints: Vec<String>,
 }
 
-#[derive(Debug, Serialize)]
+#[derive(Debug, Deserialize, Serialize)]
 pub struct Import {
     pub library: String,
     pub name: String,
 }
 
-#[derive(Debug, Serialize)]
+#[derive(Debug, Deserialize, Serialize)]
 pub struct Section {
     pub name: String,
     pub address: u64,
@@ -40,7 +40,7 @@ pub struct Section {
     pub kind: String,
 }
 
-#[derive(Debug, Serialize)]
+#[derive(Debug, Deserialize, Serialize)]
 pub struct Symbol {
     pub name: String,
     pub demangled: String,

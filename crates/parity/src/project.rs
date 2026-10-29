@@ -22,9 +22,15 @@ pub struct Project {
     pub sandbox: SandboxConfig,
     #[serde(default)]
     pub normalize: Vec<Rule>,
+    #[serde(default)]
+    pub rewrite: RewriteConfig,
+    /// Where new releases of the original come from (`parity track`).
+    pub upstream: Option<Upstream>,
+    /// For servers: how replayed HTTP exchanges reach the candidate (`parity http`).
+    pub http: Option<HttpConfig>,
 }
 
-#[derive(Clone, Debug, Deserialize)]
+#[derive(Clone, Debug, Default, Deserialize)]
 #[serde(deny_unknown_fields)]
 pub struct Program {
     /// A name looked up on PATH, or a path.
@@ -32,6 +38,76 @@ pub struct Program {
     /// Arguments put before every case's own.
     #[serde(default)]
     pub args: Vec<String>,
+    /// Environment for this program only (PYTHONPATH pointing at a rewritten module, for instance).
+    #[serde(default)]
+    pub env: BTreeMap<String, String>,
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(deny_unknown_fields, default)]
+pub struct RewriteConfig {
+    /// The Rust crate the agent writes, relative to the project.
+    pub dir: String,
+    /// The binary the crate builds (default: the original's file name).
+    pub binary: Option<String>,
+    /// `claude`, `codex`, `opencode`, or `custom` with `command`.
+    pub agent: String,
+    /// The agent's command line; `{prompt}` is replaced by the task, `{prompt_file}` by its path.
+    pub command: Vec<String>,
+    pub max_iterations: u32,
+    /// Failing cases handed to the agent per iteration.
+    pub batch: usize,
+    /// Stop after this many iterations without more matching cases.
+    pub stall_limit: u32,
+    /// Run in the crate folder after each successful build (copying a built extension into place, say).
+    pub post_build: Vec<String>,
+}
+
+impl Default for RewriteConfig {
+    fn default() -> Self {
+        Self {
+            dir: "rewrite".into(),
+            binary: None,
+            agent: "claude".into(),
+            command: Vec::new(),
+            max_iterations: 50,
+            batch: 5,
+            stall_limit: 3,
+            post_build: Vec::new(),
+        }
+    }
+}
+
+#[derive(Clone, Copy, Debug, Deserialize, PartialEq, Eq)]
+#[serde(rename_all = "snake_case")]
+pub enum UpstreamSource {
+    Pypi,
+    Github,
+    Npm,
+    Crates,
+}
+
+#[derive(Debug, Deserialize)]
+#[serde(deny_unknown_fields)]
+pub struct Upstream {
+    pub source: UpstreamSource,
+    /// The package name, or `owner/repo` on GitHub.
+    pub name: String,
+    /// Run to install a new release before re-recording (`{version}` is replaced). Without it, `parity track`
+    /// only reports.
+    #[serde(default)]
+    pub install: Vec<String>,
+}
+
+#[derive(Debug, Default, Deserialize)]
+#[serde(deny_unknown_fields, default)]
+pub struct HttpConfig {
+    /// The original server's base URL, which `parity http record` proxies to.
+    pub original_url: String,
+    /// The candidate server's base URL that `parity http replay` sends recorded requests to.
+    pub candidate_url: String,
+    /// Response headers not compared (lower case). Date and Server are always skipped.
+    pub ignore_headers: Vec<String>,
 }
 
 /// How a run is isolated. The defaults favour reproducible recordings; none of them is a restriction.

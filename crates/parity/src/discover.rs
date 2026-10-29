@@ -6,12 +6,12 @@ use crate::project::{CaseInput, Program, SandboxConfig};
 use crate::sandbox;
 use anyhow::{Context, Result};
 use regex::Regex;
-use serde::Serialize;
+use serde::{Deserialize, Serialize};
 use std::collections::{BTreeMap, BTreeSet};
 use std::path::{Path, PathBuf};
 use std::sync::LazyLock;
 
-#[derive(Debug, Default, Serialize)]
+#[derive(Debug, Default, Deserialize, Serialize)]
 pub struct Surface {
     pub program: String,
     pub path: String,
@@ -31,7 +31,7 @@ pub struct Surface {
     pub sources: Vec<String>,
 }
 
-#[derive(Clone, Debug, Default, Serialize, PartialEq, Eq, PartialOrd, Ord)]
+#[derive(Clone, Debug, Default, Deserialize, Serialize, PartialEq, Eq, PartialOrd, Ord)]
 pub struct Flag {
     pub long: Option<String>,
     pub short: Option<String>,
@@ -39,6 +39,8 @@ pub struct Flag {
     pub value: Option<String>,
     pub help: String,
 }
+
+pub const HELP_TIMEOUT_SECS: u64 = 10;
 
 pub struct Options {
     /// Run `--help`, `--version` and each subcommand's `--help` (in the project's sandbox).
@@ -122,13 +124,25 @@ pub fn discover(program: &Program, sandbox_cfg: &SandboxConfig, opts: &Options) 
     }
 
     if opts.run_help {
+        // A program that never exits on --help (a server, a prompt) must not hang discovery: without a
+        // project timeout, help runs get HELP_TIMEOUT_SECS.
+        let help_cfg = SandboxConfig {
+            isolation: sandbox_cfg.isolation,
+            network: sandbox_cfg.network,
+            inherit_env: sandbox_cfg.inherit_env,
+            env: sandbox_cfg.env.clone(),
+            timeout_secs: match sandbox_cfg.timeout_secs {
+                0 => HELP_TIMEOUT_SECS,
+                t => t,
+            },
+        };
         let run = |args: &[&str]| -> Option<String> {
             let case = CaseInput {
                 name: "discover".into(),
                 args: args.iter().map(|a| a.to_string()).collect(),
                 ..Default::default()
             };
-            let o = sandbox::run(program, &case, sandbox_cfg).ok()?;
+            let o = sandbox::run(program, &case, &help_cfg).ok()?;
             let out = if o.stdout.is_empty() {
                 o.stderr
             } else {
@@ -211,14 +225,12 @@ fn apply_token(flag: &mut Flag, token: &str) {
             flag.value.get_or_insert_with(|| v.to_string());
         }
     } else if token.len() >= 2 && token.starts_with('-') && !token.starts_with("--") {
-        let short = &token[..2];
-        if flag.short.is_none()
-            && short
-                .chars()
-                .nth(1)
-                .is_some_and(|c| c.is_ascii_alphanumeric() || c == '?')
+        // By characters: help text and sources are arbitrary UTF-8.
+        if let Some(c) = token.chars().nth(1)
+            && flag.short.is_none()
+            && (c.is_ascii_alphanumeric() || c == '?')
         {
-            flag.short = Some(short.to_string());
+            flag.short = Some(format!("-{c}"));
         }
     } else if !token.is_empty()
         && (token.starts_with('<')
@@ -348,7 +360,7 @@ fn python_sources(script: &str, interpreter: &str, script_path: &Path) -> Vec<Pa
 
 /// Where a script's imports can live: its own folder, then `lib/python3*/{site,dist}-packages` under the
 /// interpreter's prefix (a venv's, when the shebang points into one), /usr/local, /usr and ~/.local.
-fn python_roots(interpreter: &str, script_path: &Path) -> Vec<PathBuf> {
+pub(crate) fn python_roots(interpreter: &str, script_path: &Path) -> Vec<PathBuf> {
     let mut prefixes: Vec<PathBuf> = Vec::new();
     if let Some(exe) = interpreter.split_whitespace().next().map(Path::new)
         && exe.is_absolute()

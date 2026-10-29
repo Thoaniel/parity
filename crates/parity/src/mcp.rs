@@ -198,7 +198,7 @@ fn call(name: &str, args: &Value) -> Result<Value> {
         "surface_map" => {
             let program = Program {
                 program: s("program").context("program is required")?.to_string(),
-                args: Vec::new(),
+                ..Default::default()
             };
             let opts = crate::discover::Options {
                 run_help: args

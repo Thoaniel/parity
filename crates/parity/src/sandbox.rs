@@ -64,10 +64,17 @@ pub fn run(program: &Program, case: &CaseInput, cfg: &SandboxConfig) -> Result<O
         other => other,
     };
     let args: Vec<&String> = program.args.iter().chain(&case.args).collect();
+    // The program's own environment, then the case's (which wins).
+    let extra_env: BTreeMap<String, String> = program
+        .env
+        .iter()
+        .chain(&case.env)
+        .map(|(k, v)| (k.clone(), v.clone()))
+        .collect();
     let (home, mut cmd) = match isolation {
         Isolation::Bwrap => (
             format!("{WORK}/.home"),
-            bwrap(&exe, &args, &work, cfg, &case.env)?,
+            bwrap(&exe, &args, &work, cfg, &extra_env)?,
         ),
         _ => {
             let mut cmd = Command::new(&exe);
@@ -83,7 +90,7 @@ pub fn run(program: &Program, case: &CaseInput, cfg: &SandboxConfig) -> Result<O
             cmd.env("PATH", path);
         }
         cmd.env("HOME", &home);
-        cmd.envs(&cfg.env).envs(&case.env);
+        cmd.envs(&cfg.env).envs(&extra_env);
     }
 
     let start = Instant::now();

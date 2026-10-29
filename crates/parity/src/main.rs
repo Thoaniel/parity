@@ -1,11 +1,19 @@
 mod compare;
 mod corpus;
 mod discover;
+mod http;
+mod ledger;
 mod mcp;
 mod normalize;
 mod project;
+mod pylib;
+mod recorder;
 mod report;
+mod rewrite;
 mod sandbox;
+mod suggest;
+mod swap;
+mod track;
 
 use anyhow::{Context, Result, bail};
 use clap::{Parser, Subcommand};
@@ -71,9 +79,152 @@ enum Command {
     },
     /// Serve Parity's tools over the Model Context Protocol on stdin/stdout, for any agent.
     Mcp,
+    /// Look inside any executable: overview, sections, symbols, strings, disassembly.
+    Inspect {
+        path: PathBuf,
+        #[arg(long)]
+        sections: bool,
+        /// Symbols whose name contains this ("" for all).
+        #[arg(long)]
+        symbols: Option<String>,
+        /// Strings matching this regex ("" for all).
+        #[arg(long)]
+        strings: Option<String>,
+        #[arg(long, default_value_t = 6)]
+        min_len: usize,
+        /// Disassemble from this symbol or address (0x...).
+        #[arg(long)]
+        disasm: Option<String>,
+        #[arg(long, default_value_t = 64)]
+        count: usize,
+        /// At most this many symbols or strings (0 = all).
+        #[arg(long, default_value_t = 200)]
+        limit: usize,
+    },
+    /// The port ledger: every part of the original and its verdict. Without an action, a summary.
+    Ledger {
+        #[command(subcommand)]
+        action: Option<LedgerAction>,
+    },
+    /// Drive a coding agent until the rewrite matches every recorded case.
+    Rewrite {
+        #[arg(long)]
+        max_iterations: Option<u32>,
+        /// Write the next task and print the agent command without running it.
+        #[arg(long)]
+        dry_run: bool,
+    },
+    /// Put the rewrite in place of the original: shadow mode by default (the original still answers; the rewrite
+    /// runs beside it and is compared), --now to switch at once, --unit for a systemd service.
+    Swap {
+        /// The command name (default: the original's file name).
+        name: Option<String>,
+        #[arg(long)]
+        now: bool,
+        #[arg(long)]
+        unit: Option<String>,
+        /// A system unit instead of a user unit (needs root).
+        #[arg(long)]
+        system: bool,
+    },
+    /// Change a swap's mode: shadow, swapped or original.
+    SwapMode { name: String, mode: String },
+    /// Undo a swap: the original is back exactly where it was.
+    Revert { name: String },
+    /// The swaps on this machine, their modes, runs and divergences.
+    Swaps,
+    #[command(hide = true)]
+    ShadowCheck { job: PathBuf },
+    /// Servers: record HTTP exchanges through a proxy in front of the original, replay them against the rewrite.
+    Http {
+        #[command(subcommand)]
+        action: HttpAction,
+    },
+    /// Start a project for a Python library, rewritten as a PyO3 module with the same import name.
+    Pylib { module: String },
+    /// Follow the original's releases: re-record and replay when a new one is out.
+    Track {
+        /// Re-record and replay now, whatever the version.
+        #[arg(long)]
+        rerecord: bool,
+        /// Run daily with a systemd user timer.
+        #[arg(long)]
+        install_timer: bool,
+    },
+    /// What on this machine is worth rewriting first.
+    Suggest {
+        #[arg(long, default_value_t = 15)]
+        limit: usize,
+    },
+    /// The flight recorder: sample stalls and busy processes into a rolling window.
+    Recorder {
+        #[arg(long, default_value_t = 250)]
+        interval_ms: u64,
+        #[arg(long, default_value_t = 1800)]
+        window_secs: u64,
+        /// Install and start it as a systemd user service.
+        #[arg(long)]
+        install: bool,
+    },
+    /// Why was the machine slow then? `now`, `90s`, `2 minutes ago`, `14:05`.
+    Why {
+        when: String,
+        /// Seconds before and after to look at.
+        #[arg(long, default_value_t = 15)]
+        span: u64,
+    },
+}
+
+#[derive(Subcommand)]
+enum LedgerAction {
+    /// Add everything in surface.json that the ledger doesn't list yet.
+    Init,
+    /// Set an item's status: missing, partial, ported, folded, not_needed.
+    Set {
+        id: String,
+        status: ledger::Status,
+        #[arg(long)]
+        note: Option<String>,
+    },
+}
+
+#[derive(Subcommand)]
+enum HttpAction {
+    /// Listen here and forward to [http] original_url, keeping every exchange.
+    Record {
+        #[arg(long, default_value = "127.0.0.1:8099")]
+        listen: String,
+    },
+    /// Send the recorded requests to the candidate and report divergences.
+    Replay {
+        #[arg(long)]
+        candidate_url: Option<String>,
+        #[arg(long, default_value_t = 40)]
+        diff_lines: usize,
+    },
 }
 
 fn main() -> ExitCode {
+    // Started through a swap's link under another name: be that program.
+    let mut argv = std::env::args();
+    let argv0 = argv.next().unwrap_or_default();
+    let called = std::path::Path::new(&argv0)
+        .file_name()
+        .map(|n| n.to_string_lossy().into_owned())
+        .unwrap_or_default();
+    if !called.is_empty()
+        && called != "parity"
+        && !called.starts_with("parity-")
+        && !called.starts_with("parity.")
+    {
+        return match swap::shim_main(&called, argv.collect()) {
+            Ok(code) => ExitCode::from(code.clamp(0, 255) as u8),
+            Err(e) => {
+                eprintln!("{e:#}");
+                ExitCode::from(127)
+            }
+        };
+    }
     match run(Cli::parse()) {
         Ok(code) => code,
         Err(e) => {
@@ -103,7 +254,194 @@ fn run(cli: Cli) -> Result<ExitCode> {
             json,
         } => discover(&layout, program, no_run, write_cases, json),
         Command::Mcp => mcp::serve().map(|()| ExitCode::SUCCESS),
+        Command::Inspect {
+            path,
+            sections,
+            symbols,
+            strings,
+            min_len,
+            disasm,
+            count,
+            limit,
+        } => inspect(
+            &path, sections, symbols, strings, min_len, disasm, count, limit,
+        ),
+        Command::Ledger { action } => {
+            let mut l = ledger::Ledger::load(&layout)?;
+            match action {
+                None => print!("{}", l.summary()),
+                Some(LedgerAction::Init) => {
+                    let path = layout.root.join("surface.json");
+                    let text = std::fs::read_to_string(&path).with_context(|| {
+                        format!("{}: run `parity discover` first", path.display())
+                    })?;
+                    let surface: discover::Surface = serde_json::from_str(&text)?;
+                    let added = l.merge_surface(&surface);
+                    l.save(&layout)?;
+                    println!("{added} items added\n{}", l.summary());
+                }
+                Some(LedgerAction::Set { id, status, note }) => {
+                    l.set(&id, status, note)?;
+                    l.save(&layout)?;
+                }
+            }
+            Ok(ExitCode::SUCCESS)
+        }
+        Command::Rewrite {
+            max_iterations,
+            dry_run,
+        } => rewrite::run(
+            &layout,
+            &rewrite::Options {
+                max_iterations,
+                dry_run,
+            },
+        )
+        .map(|()| ExitCode::SUCCESS),
+        Command::Swap {
+            name,
+            now,
+            unit,
+            system,
+        } => {
+            let project = layout.load_project()?;
+            let original = sandbox::resolve(&project.original.program)?;
+            let candidate = rewrite::default_candidate(&layout, &project)
+                .context("no candidate to swap in: build the rewrite or set [candidate]")?;
+            let name = name.unwrap_or_else(|| {
+                original
+                    .file_name()
+                    .map_or_else(String::new, |n| n.to_string_lossy().into_owned())
+            });
+            swap::swap(swap::SwapRequest {
+                name,
+                original,
+                candidate: sandbox::resolve(&candidate.program)?,
+                project: Some(layout.root.clone()),
+                mode: if now {
+                    swap::Mode::Swapped
+                } else {
+                    swap::Mode::Shadow
+                },
+                unit,
+                system_unit: system,
+            })
+            .map(|()| ExitCode::SUCCESS)
+        }
+        Command::SwapMode { name, mode } => {
+            let mode = match mode.as_str() {
+                "shadow" => swap::Mode::Shadow,
+                "swapped" => swap::Mode::Swapped,
+                "original" => swap::Mode::Original,
+                other => bail!("mode {other:?}: shadow, swapped or original"),
+            };
+            swap::set_mode(&name, mode).map(|()| ExitCode::SUCCESS)
+        }
+        Command::Revert { name } => swap::revert(&name).map(|()| ExitCode::SUCCESS),
+        Command::Swaps => swap::list().map(|()| ExitCode::SUCCESS),
+        Command::ShadowCheck { job } => swap::shadow_check(&job).map(|()| ExitCode::SUCCESS),
+        Command::Http { action } => match action {
+            HttpAction::Record { listen } => {
+                http::record(&layout, &listen).map(|()| ExitCode::SUCCESS)
+            }
+            HttpAction::Replay {
+                candidate_url,
+                diff_lines,
+            } => {
+                let report = http::replay(&layout, candidate_url)?;
+                print!("{}", report.render(diff_lines));
+                Ok(if report.matching() == report.cases.len() {
+                    ExitCode::SUCCESS
+                } else {
+                    ExitCode::from(1)
+                })
+            }
+        },
+        Command::Pylib { module } => pylib::init(&layout, &module).map(|()| ExitCode::SUCCESS),
+        Command::Track {
+            rerecord,
+            install_timer,
+        } => {
+            if install_timer {
+                track::install_timer(&layout)?;
+            } else {
+                track::track(&layout, rerecord)?;
+            }
+            Ok(ExitCode::SUCCESS)
+        }
+        Command::Suggest { limit } => suggest::suggest(limit).map(|()| ExitCode::SUCCESS),
+        Command::Recorder {
+            interval_ms,
+            window_secs,
+            install,
+        } => {
+            if install {
+                recorder::install()?;
+            } else {
+                recorder::run(interval_ms.max(50), window_secs)?;
+            }
+            Ok(ExitCode::SUCCESS)
+        }
+        Command::Why { when, span } => recorder::why(&when, span).map(|()| ExitCode::SUCCESS),
     }
+}
+
+#[allow(clippy::too_many_arguments)]
+fn inspect(
+    path: &std::path::Path,
+    sections: bool,
+    symbols: Option<String>,
+    strings: Option<String>,
+    min_len: usize,
+    disasm: Option<String>,
+    count: usize,
+    limit: usize,
+) -> Result<ExitCode> {
+    let data = std::fs::read(path).with_context(|| format!("{}", path.display()))?;
+    let cap = |n: usize| if limit == 0 { n } else { n.min(limit) };
+    if sections {
+        for s in parity_rea::sections(&data)? {
+            println!(
+                "{:<24} {:#014x} {:>10}  {}",
+                s.name, s.address, s.size, s.kind
+            );
+        }
+    } else if let Some(filter) = symbols {
+        let syms = parity_rea::symbols(&data, (!filter.is_empty()).then_some(filter.as_str()))?;
+        for s in syms.iter().take(cap(syms.len())) {
+            println!(
+                "{:#014x} {:>8} {:<8} {}",
+                s.address, s.size, s.kind, s.demangled
+            );
+        }
+        println!("{} symbols", syms.len());
+    } else if let Some(pattern) = strings {
+        let re = (!pattern.is_empty())
+            .then(|| regex::Regex::new(&pattern))
+            .transpose()?;
+        let found = parity_rea::strings(&data, min_len, re.as_ref(), 0);
+        for s in found.iter().take(cap(found.len())) {
+            println!("{:#010x} {}", s.offset, s.text);
+        }
+        println!("{} strings", found.len());
+    } else if let Some(start) = disasm {
+        let start = match start.strip_prefix("0x") {
+            Some(hex) => parity_rea::disasm::Start::Address(u64::from_str_radix(hex, 16)?),
+            None => parity_rea::disasm::Start::Symbol(&start),
+        };
+        for i in parity_rea::disassemble(&data, start, count)? {
+            println!(
+                "{:#014x}  {:<24} {} {}",
+                i.address, i.bytes, i.mnemonic, i.operands
+            );
+        }
+    } else {
+        println!(
+            "{}",
+            serde_json::to_string_pretty(&parity_rea::overview(&data)?)?
+        );
+    }
+    Ok(ExitCode::SUCCESS)
 }
 
 fn init(layout: &Layout, program: &str) -> Result<ExitCode> {
@@ -186,12 +524,11 @@ fn replay_report(
     let candidate = match candidate {
         Some(program) => Program {
             program,
-            args: Vec::new(),
+            ..Default::default()
         },
-        None => project
-            .candidate
-            .clone()
-            .context("no candidate: set [candidate] in parity.toml or pass --candidate")?,
+        None => rewrite::default_candidate(layout, &project).context(
+            "no candidate: set [candidate] in parity.toml, build the rewrite, or pass --candidate",
+        )?,
     };
     let norm = normalize::Normalizer::new(&project.normalize)?;
     let names = selected(corpus::list(&layout.corpus_dir())?, only, |n| n)?;
@@ -238,7 +575,7 @@ fn discover(
     let program = match (program, &project) {
         (Some(p), _) => Program {
             program: p,
-            args: Vec::new(),
+            ..Default::default()
         },
         (None, Some(p)) => p.original.clone(),
         (None, None) => bail!("name a program, or run in a project folder"),

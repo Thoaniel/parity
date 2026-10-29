@@ -11,6 +11,10 @@ pub enum Field {
     Stdout,
     Stderr,
     File(String),
+    /// HTTP: the response status, a response header, the response body.
+    Status,
+    Header(String),
+    Body,
 }
 
 impl std::fmt::Display for Field {
@@ -20,6 +24,9 @@ impl std::fmt::Display for Field {
             Field::Stdout => f.write_str("stdout"),
             Field::Stderr => f.write_str("stderr"),
             Field::File(p) => write!(f, "file {p}"),
+            Field::Status => f.write_str("status"),
+            Field::Header(h) => write!(f, "header {h}"),
+            Field::Body => f.write_str("body"),
         }
     }
 }

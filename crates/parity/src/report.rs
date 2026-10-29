@@ -6,7 +6,7 @@ use serde::Serialize;
 use similar::TextDiff;
 use std::fmt::Write;
 
-#[derive(Debug, Serialize)]
+#[derive(Clone, Debug, Serialize)]
 pub struct CaseResult {
     pub name: String,
     pub divergences: Vec<Divergence>,
@@ -14,7 +14,7 @@ pub struct CaseResult {
     pub candidate_ms: u64,
 }
 
-#[derive(Debug, Serialize)]
+#[derive(Clone, Debug, Serialize)]
 pub struct Report {
     pub original: String,
     pub candidate: String,
