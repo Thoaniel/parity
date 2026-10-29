@@ -126,6 +126,12 @@ enum Command {
         /// A system unit instead of a user unit (needs root).
         #[arg(long)]
         system: bool,
+        /// Turn shadow divergences into cases. Their arguments and stdin are saved and shown to the agent.
+        #[arg(long)]
+        learn: bool,
+        /// Let the shadow run use the network (it would repeat downloads and requests the original made).
+        #[arg(long)]
+        shadow_network: bool,
     },
     /// Change a swap's mode: shadow, swapped or original.
     SwapMode { name: String, mode: String },
@@ -303,6 +309,8 @@ fn run(cli: Cli) -> Result<ExitCode> {
             now,
             unit,
             system,
+            learn,
+            shadow_network,
         } => {
             let project = layout.load_project()?;
             let original = sandbox::resolve(&project.original.program)?;
@@ -325,6 +333,8 @@ fn run(cli: Cli) -> Result<ExitCode> {
                 },
                 unit,
                 system_unit: system,
+                learn,
+                shadow_network,
             })
             .map(|()| ExitCode::SUCCESS)
         }

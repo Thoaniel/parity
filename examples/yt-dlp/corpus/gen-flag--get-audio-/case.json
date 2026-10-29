@@ -1,0 +1,16 @@
+{
+  "format": 1,
+  "input": {
+    "name": "gen-flag--get-audio-",
+    "args": [
+      "--get-audio\""
+    ]
+  },
+  "exit": {
+    "code": 2
+  },
+  "duration_ms": 121,
+  "files": {},
+  "recorded_with": "/usr/bin/yt-dlp",
+  "parity_version": "0.1.0"
+}

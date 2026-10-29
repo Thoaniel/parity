@@ -1,0 +1,4 @@
+
+Usage: yt-dlp [OPTIONS] URL [URL...]
+
+yt-dlp: error: --geo-bypass-country option requires 1 argument

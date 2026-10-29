@@ -1,0 +1,4 @@
+
+Usage: yt-dlp [OPTIONS] URL [URL...]
+
+yt-dlp: error: --add-headers option requires 1 argument

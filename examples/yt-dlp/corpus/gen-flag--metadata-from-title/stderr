@@ -1,0 +1,4 @@
+
+Usage: yt-dlp [OPTIONS] URL [URL...]
+
+yt-dlp: error: --metadata-from-title option requires 1 argument

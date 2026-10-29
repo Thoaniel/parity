@@ -1,0 +1,24 @@
+{
+  "format": 1,
+  "input": {
+    "name": "tmpl-default-value",
+    "args": [
+      "--load-info-json",
+      "info.json",
+      "--print",
+      "%(artist|Unknown artist)s"
+    ],
+    "files": {
+      "info.json": "{\n \"_type\": \"video\",\n \"id\": \"parity-0001\",\n \"title\": \"Parity test video: ünïcode, symbols & a/slash\",\n \"fulltitle\": \"Parity test video: ünïcode, symbols & a/slash\",\n \"ext\": \"mp4\",\n \"extractor\": \"generic\",\n \"extractor_key\": \"Generic\",\n \"webpage_url\": \"https://www.example.com/watch/parity-0001\",\n \"webpage_url_basename\": \"parity-0001\",\n \"upload_date\": \"20260115\",\n \"timestamp\": 1768478400,\n \"duration\": 3725,\n \"view_count\": 12345,\n \"like_count\": 678,\n \"uploader\": \"Parity Project\",\n \"uploader_id\": \"parity\",\n \"channel\": \"Parity\",\n \"tags\": [\n  \"rust\",\n  \"rewrite\",\n  \"a tag with spaces\"\n ],\n \"categories\": [\n  \"Science & Technology\"\n ],\n \"description\": \"Line one.\\nLine two with ünïcode.\",\n \"thumbnails\": [\n  {\n   \"id\": \"0\",\n   \"url\": \"https://media.example.invalid/thumb.jpg\",\n   \"width\": 320,\n   \"height\": 180\n  }\n ],\n \"formats\": [\n  {\n   \"format_id\": \"18\",\n   \"ext\": \"mp4\",\n   \"width\": 640,\n   \"height\": 360,\n   \"vcodec\": \"avc1.42001E\",\n   \"acodec\": \"mp4a.40.2\",\n   \"tbr\": 500.5,\n   \"fps\": 30,\n   \"protocol\": \"https\",\n   \"url\": \"https://media.example.invalid/18.mp4\",\n   \"filesize\": 1234567\n  },\n  {\n   \"format_id\": \"22\",\n   \"ext\": \"mp4\",\n   \"width\": 1280,\n   \"height\": 720,\n   \"vcodec\": \"avc1.64001F\",\n   \"acodec\": \"mp4a.40.2\",\n   \"tbr\": 1500.0,\n   \"fps\": 30,\n   \"protocol\": \"https\",\n   \"url\": \"https://media.example.invalid/22.mp4\"\n  },\n  {\n   \"format_id\": \"136\",\n   \"ext\": \"mp4\",\n   \"width\": 1280,\n   \"height\": 720,\n   \"vcodec\": \"avc1.4d401f\",\n   \"acodec\": \"none\",\n   \"tbr\": 1200.0,\n   \"fps\": 30,\n   \"protocol\": \"https\",\n   \"url\": \"https://media.example.invalid/136.mp4\",\n   \"filesize\": 9876543\n  },\n  {\n   \"format_id\": \"137\",\n   \"ext\": \"mp4\",\n   \"width\": 1920,\n   \"height\": 1080,\n   \"vcodec\": \"avc1.640028\",\n   \"acodec\": \"none\",\n   \"tbr\": 2500.0,\n   \"fps\": 30,\n   \"protocol\": \"https\",\n   \"url\": \"https://media.example.invalid/137.mp4\"\n  },\n  {\n   \"format_id\": \"248\",\n   \"ext\": \"webm\",\n   \"width\": 1920,\n   \"height\": 1080,\n   \"vcodec\": \"vp9\",\n   \"acodec\": \"none\",\n   \"tbr\": 2300.0,\n   \"fps\": 60,\n   \"protocol\": \"https\",\n   \"url\": \"https://media.example.invalid/248.webm\"\n  },\n  {\n   \"format_id\": \"140\",\n   \"ext\": \"m4a\",\n   \"vcodec\": \"none\",\n   \"acodec\": \"mp4a.40.2\",\n   \"abr\": 128.0,\n   \"asr\": 44100,\n   \"audio_channels\": 2,\n   \"protocol\": \"https\",\n   \"url\": \"https://media.example.invalid/140.m4a\"\n  },\n  {\n   \"format_id\": \"251\",\n   \"ext\": \"webm\",\n   \"vcodec\": \"none\",\n   \"acodec\": \"opus\",\n   \"abr\": 160.0,\n   \"asr\": 48000,\n   \"audio_channels\": 2,\n   \"protocol\": \"https\",\n   \"url\": \"https://media.example.invalid/251.webm\"\n  }\n ]\n}\n"
+    }
+  },
+  "exit": {
+    "code": 0
+  },
+  "duration_ms": 192,
+  "files": {
+    "info.json": "65a79d2bc8a156b2293c7157c063cecb797fdf3f334b9b3a0ce954511eafd621"
+  },
+  "recorded_with": "/usr/bin/yt-dlp",
+  "parity_version": "0.1.0"
+}

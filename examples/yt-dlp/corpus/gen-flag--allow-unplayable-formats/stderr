@@ -1,0 +1,7 @@
+WARNING: You have asked for UNPLAYABLE formats to be listed/downloaded. This is a developer option intended for debugging. 
+         If you experience any issues while using this option, DO NOT open a bug report
+
+Usage: yt-dlp [OPTIONS] URL [URL...]
+
+yt-dlp: error: You must provide at least one URL.
+Type yt-dlp --help to see a list of all options.

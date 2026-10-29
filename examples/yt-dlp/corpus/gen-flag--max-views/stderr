@@ -1,0 +1,4 @@
+
+Usage: yt-dlp [OPTIONS] URL [URL...]
+
+yt-dlp: error: --max-views option requires 1 argument

@@ -1,0 +1,16 @@
+{
+  "format": 1,
+  "input": {
+    "name": "gen-flag--live-from-start",
+    "args": [
+      "--live-from-start"
+    ]
+  },
+  "exit": {
+    "code": 2
+  },
+  "duration_ms": 168,
+  "files": {},
+  "recorded_with": "/usr/bin/yt-dlp",
+  "parity_version": "0.1.0"
+}

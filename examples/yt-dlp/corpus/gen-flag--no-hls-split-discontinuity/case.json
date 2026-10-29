@@ -1,0 +1,16 @@
+{
+  "format": 1,
+  "input": {
+    "name": "gen-flag--no-hls-split-discontinuity",
+    "args": [
+      "--no-hls-split-discontinuity"
+    ]
+  },
+  "exit": {
+    "code": 2
+  },
+  "duration_ms": 151,
+  "files": {},
+  "recorded_with": "/usr/bin/yt-dlp",
+  "parity_version": "0.1.0"
+}

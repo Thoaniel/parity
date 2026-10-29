@@ -1,0 +1,7 @@
+WARNING: Long argument string detected. Use -- to separate parameters and URLs, like this:
+yt-dlp --ignore-config --no-cache-dir -- --get-title
+
+Usage: yt-dlp [OPTIONS] URL [URL...]
+
+yt-dlp: error: You must provide at least one URL.
+Type yt-dlp --help to see a list of all options.

@@ -1,0 +1,16 @@
+{
+  "format": 1,
+  "input": {
+    "name": "gen-flag--abort-on-unavailable-fragments",
+    "args": [
+      "--abort-on-unavailable-fragments"
+    ]
+  },
+  "exit": {
+    "code": 2
+  },
+  "duration_ms": 158,
+  "files": {},
+  "recorded_with": "/usr/bin/yt-dlp",
+  "parity_version": "0.1.0"
+}

@@ -18,6 +18,9 @@ use std::time::{Duration, Instant};
 
 pub const HTTP_CORPUS: &str = "corpus-http";
 
+/// Request bodies larger than this are refused by the recording proxy.
+const MAX_BODY: u64 = 64 << 20;
+
 /// Headers that describe the connection or the moment, never the behaviour.
 const ALWAYS_IGNORED: &[&str] = &[
     "date",
@@ -66,6 +69,10 @@ fn agent() -> ureq::Agent {
 
 /// Sends one request; 4xx and 5xx are answers like any other.
 fn send(base: &str, req: &Request, body: &[u8]) -> Result<(Response, Vec<u8>)> {
+    // Only origin-form targets: an absolute URL or `//host` would make the proxy fetch from elsewhere.
+    if !req.url.starts_with('/') || req.url.starts_with("//") {
+        bail!("request target {:?} is not a path", req.url);
+    }
     let url = format!("{}{}", base.trim_end_matches('/'), req.url);
     let mut r = agent().request(&req.method, &url);
     for (k, v) in &req.headers {
@@ -125,21 +132,38 @@ pub fn record(layout: &Layout, listen: &str) -> Result<()> {
                 })
                 .collect(),
         };
+        // One bad request must never stop the proxy: every failure is an answer, then the next request.
         let mut body = Vec::new();
-        incoming.as_reader().read_to_end(&mut body)?;
+        let read = incoming
+            .as_reader()
+            .take(MAX_BODY + 1)
+            .read_to_end(&mut body);
+        if read.is_err() || body.len() as u64 > MAX_BODY {
+            let _ = incoming.respond(
+                tiny_http::Response::from_string("parity proxy: unreadable or too large body")
+                    .with_status_code(400),
+            );
+            continue;
+        }
         let answer = match send(&cfg.original_url, &req, &body) {
             Ok((resp, resp_body)) => {
                 let case = dir.join(format!("{next:06}"));
                 next += 1;
-                std::fs::create_dir_all(&case)?;
-                std::fs::write(case.join("request.json"), serde_json::to_vec_pretty(&req)?)?;
-                std::fs::write(case.join("request.body"), &body)?;
-                std::fs::write(
-                    case.join("response.json"),
-                    serde_json::to_vec_pretty(&resp)?,
-                )?;
-                std::fs::write(case.join("response.body"), &resp_body)?;
-                println!("{} {} → {}", req.method, req.url, resp.status);
+                let saved = (|| -> Result<()> {
+                    std::fs::create_dir_all(&case)?;
+                    std::fs::write(case.join("request.json"), serde_json::to_vec_pretty(&req)?)?;
+                    std::fs::write(case.join("request.body"), &body)?;
+                    std::fs::write(
+                        case.join("response.json"),
+                        serde_json::to_vec_pretty(&resp)?,
+                    )?;
+                    std::fs::write(case.join("response.body"), &resp_body)?;
+                    Ok(())
+                })();
+                match saved {
+                    Ok(()) => println!("{} {} → {}", req.method, req.url, resp.status),
+                    Err(e) => eprintln!("{} {}: not recorded: {e:#}", req.method, req.url),
+                }
                 let mut out =
                     tiny_http::Response::from_data(resp_body).with_status_code(resp.status);
                 for (k, v) in &resp.headers {

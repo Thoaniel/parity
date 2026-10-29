@@ -1,0 +1,16 @@
+{
+  "format": 1,
+  "input": {
+    "name": "gen-flag--no-lazy-playlist",
+    "args": [
+      "--no-lazy-playlist"
+    ]
+  },
+  "exit": {
+    "code": 2
+  },
+  "duration_ms": 159,
+  "files": {},
+  "recorded_with": "/usr/bin/yt-dlp",
+  "parity_version": "0.1.0"
+}

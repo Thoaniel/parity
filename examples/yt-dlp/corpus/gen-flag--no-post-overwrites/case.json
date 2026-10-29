@@ -1,0 +1,16 @@
+{
+  "format": 1,
+  "input": {
+    "name": "gen-flag--no-post-overwrites",
+    "args": [
+      "--no-post-overwrites"
+    ]
+  },
+  "exit": {
+    "code": 2
+  },
+  "duration_ms": 162,
+  "files": {},
+  "recorded_with": "/usr/bin/yt-dlp",
+  "parity_version": "0.1.0"
+}

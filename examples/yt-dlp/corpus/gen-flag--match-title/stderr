@@ -1,0 +1,4 @@
+
+Usage: yt-dlp [OPTIONS] URL [URL...]
+
+yt-dlp: error: --match-title option requires 1 argument

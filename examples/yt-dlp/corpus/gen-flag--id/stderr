@@ -1,0 +1,6 @@
+WARNING: --id is deprecated. Use -o "%(id)s.%(ext)s" instead
+
+Usage: yt-dlp [OPTIONS] URL [URL...]
+
+yt-dlp: error: You must provide at least one URL.
+Type yt-dlp --help to see a list of all options.

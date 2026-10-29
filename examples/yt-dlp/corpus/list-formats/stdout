@@ -1,0 +1,10 @@
+[info] Available formats for parity-0001:
+ID  EXT  RESOLUTION FPS CH |    FILESIZE   TBR PROTO | VCODEC        VBR ACODEC      ABR ASR
+--------------------------------------------------------------------------------------------
+140 m4a  audio only      2 | ≈  56.84MiB  128k https | audio only        mp4a.40.2  128k 44k
+251 webm audio only      2 | ≈  71.05MiB  160k https | audio only        opus       160k 48k
+18  mp4  640x360     30    |     1.18MiB  500k https | avc1.42001E       mp4a.40.2
+136 mp4  1280x720    30    |     9.42MiB 1200k https | avc1.4d401f 1200k video only
+22  mp4  1280x720    30    | ≈ 666.08MiB 1500k https | avc1.64001F       mp4a.40.2
+137 mp4  1920x1080   30    | ≈   1.08GiB 2500k https | avc1.640028 2500k video only
+248 webm 1920x1080   60    | ≈1021.33MiB 2300k https | vp9         2300k video only

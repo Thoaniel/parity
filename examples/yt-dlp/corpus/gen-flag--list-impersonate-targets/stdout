@@ -1,0 +1,8 @@
+[info] Available impersonate targets
+Client    OS   Source
+--------------------------------------------
+Tor       -    curl_cffi>=0.11 (unavailable)
+Edge      -    curl_cffi (unavailable)
+Firefox   -    curl_cffi>=0.10 (unavailable)
+Safari    -    curl_cffi (unavailable)
+Chrome    -    curl_cffi (unavailable)

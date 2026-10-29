@@ -1,0 +1,39 @@
+# Parity's flagship: yt-dlp rewritten in Rust.
+# Every case runs offline: format selection, output templates and listings work on a synthetic info.json
+# (--load-info-json) that holds no real media. Network extraction cases come later, recorded against yt-dlp's own
+# extractor test definitions, never committing third-party media.
+[original]
+program = "yt-dlp"
+# Same behaviour whatever the user's config file says.
+args = ["--ignore-config", "--no-cache-dir"]
+
+[sandbox]
+isolation = "auto"
+network = false
+timeout_secs = 120
+env = { LANG = "C.UTF-8", LC_ALL = "C.UTF-8", TZ = "UTC", COLUMNS = "120", NO_COLOR = "1" }
+
+# The JSON dumps carry the time of the run and the version that made them.
+[[normalize]]
+name = "epoch"
+pattern = '"epoch": \d+'
+replace = '"epoch": <EPOCH>'
+
+[[normalize]]
+name = "version-block"
+pattern = '"_version": \{[^}]*\}'
+replace = '"_version": <VERSION>'
+
+[rewrite]
+dir = "rewrite"
+binary = "yt-dlp"
+agent = "claude"
+batch = 5
+max_iterations = 200
+stall_limit = 4
+
+[upstream]
+source = "pypi"
+name = "yt-dlp"
+# Installed by the system package manager here; `parity track` reports new releases, then
+# `parity track --rerecord` after updating.

@@ -1,0 +1,16 @@
+{
+  "format": 1,
+  "input": {
+    "name": "gen-flag--match-title",
+    "args": [
+      "--match-title"
+    ]
+  },
+  "exit": {
+    "code": 2
+  },
+  "duration_ms": 116,
+  "files": {},
+  "recorded_with": "/usr/bin/yt-dlp",
+  "parity_version": "0.1.0"
+}

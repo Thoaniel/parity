@@ -46,6 +46,13 @@ pub struct Swap {
     pub unit: Option<String>,
     #[serde(default)]
     pub user_unit: bool,
+    /// Divergences found in shadow mode become cases (their arguments and stdin are saved, and the agent sees
+    /// them). Off by default: real use can carry secrets.
+    #[serde(default)]
+    pub learn: bool,
+    /// The shadow run of the rewrite may use the network. Off by default, so nothing is sent twice.
+    #[serde(default)]
+    pub shadow_network: bool,
 }
 
 fn home() -> Result<PathBuf> {
@@ -123,6 +130,8 @@ pub struct SwapRequest {
     pub mode: Mode,
     pub unit: Option<String>,
     pub system_unit: bool,
+    pub learn: bool,
+    pub shadow_network: bool,
 }
 
 pub fn swap(req: SwapRequest) -> Result<()> {
@@ -152,6 +161,8 @@ pub fn swap(req: SwapRequest) -> Result<()> {
         moved_from: None,
         unit: None,
         user_unit: !req.system_unit,
+        learn: req.learn,
+        shadow_network: req.shadow_network,
     };
 
     if let Some(unit) = req.unit {
@@ -473,7 +484,7 @@ fn spawn_check(job: &ShadowJob) -> Result<()> {
         now(),
         std::process::id()
     ));
-    std::fs::write(&file, serde_json::to_vec(job)?)?;
+    private_file(&file)?.write_all(&serde_json::to_vec(job)?)?;
     Command::new(data_dir()?.join("parity"))
         .arg0("parity")
         .arg("shadow-check")
@@ -489,14 +500,29 @@ fn spawn_check(job: &ShadowJob) -> Result<()> {
 fn log_line(name: &str, value: &serde_json::Value) {
     if let Ok(dir) = state_dir().map(|d| d.join("shadow")) {
         let _ = std::fs::create_dir_all(&dir);
-        if let Ok(mut f) = std::fs::OpenOptions::new()
-            .create(true)
-            .append(true)
-            .open(dir.join(format!("{name}.jsonl")))
-        {
+        if let Ok(mut f) = private_append(&dir.join(format!("{name}.jsonl"))) {
             let _ = writeln!(f, "{value}");
         }
     }
+}
+
+/// Shadow jobs and logs hold real arguments and stdin: readable by the user only.
+fn private_file(path: &Path) -> std::io::Result<std::fs::File> {
+    use std::os::unix::fs::OpenOptionsExt;
+    std::fs::OpenOptions::new()
+        .write(true)
+        .create_new(true)
+        .mode(0o600)
+        .open(path)
+}
+
+fn private_append(path: &Path) -> std::io::Result<std::fs::File> {
+    use std::os::unix::fs::OpenOptionsExt;
+    std::fs::OpenOptions::new()
+        .create(true)
+        .append(true)
+        .mode(0o600)
+        .open(path)
 }
 
 /// `parity shadow-check JOB`: runs the rewrite like the original ran, compares, records divergences.
@@ -515,7 +541,7 @@ pub fn shadow_check(job_file: &Path) -> Result<()> {
         .unwrap_or_default();
     let norm = crate::normalize::Normalizer::new(&rules)?;
 
-    let (stdout, stderr, exit) = overlay_run(&swap.candidate, &job)?;
+    let (stdout, stderr, exit) = overlay_run(&swap.candidate, &job, swap.shadow_network)?;
     let expected = crate::sandbox::Observed {
         stdout: job.stdout.clone(),
         stderr: job.stderr.clone(),
@@ -548,7 +574,7 @@ pub fn shadow_check(job_file: &Path) -> Result<()> {
             s.mode = Mode::Original;
         }
     })?;
-    if let Some(layout) = &project {
+    if let Some(layout) = project.as_ref().filter(|_| swap.learn) {
         let case = CaseInput {
             name: format!("shadow-{}-{}", now(), std::process::id()),
             args: job.args.clone(),
@@ -580,10 +606,11 @@ pub fn shadow_check(job_file: &Path) -> Result<()> {
 }
 
 /// The rewrite in bubblewrap, the caller's working folder visible through a throwaway overlay (its writes
-/// vanish), network shared like the original had it.
+/// vanish), without network or session sockets unless the swap allows network.
 fn overlay_run(
     candidate: &Path,
     job: &ShadowJob,
+    shadow_network: bool,
 ) -> Result<(Vec<u8>, Vec<u8>, crate::sandbox::Exit)> {
     use std::os::unix::process::ExitStatusExt;
     let cwd = job.cwd.display().to_string();
@@ -594,6 +621,9 @@ fn overlay_run(
         "--unshare-ipc",
         "--unshare-pid",
     ]);
+    if !shadow_network {
+        cmd.arg("--unshare-net");
+    }
     cmd.args([
         "--ro-bind",
         "/",
@@ -605,6 +635,10 @@ fn overlay_run(
         "--tmpfs",
         "/tmp",
     ]);
+    // No D-Bus, Wayland, PipeWire or agent sockets: the shadow run must not reach the session.
+    if let Some(runtime) = std::env::var_os("XDG_RUNTIME_DIR") {
+        cmd.arg("--tmpfs").arg(runtime);
+    }
     cmd.args([
         "--overlay-src",
         &cwd,

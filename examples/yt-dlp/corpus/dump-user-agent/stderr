@@ -1,0 +1,8 @@
+Deprecated Feature: The following options have been deprecated: --dump-user-agent
+Please remove them from your command/configuration to avoid future errors.
+See  https://github.com/yt-dlp/yt-dlp/issues/14198  for more details
+
+Usage: yt-dlp [OPTIONS] URL [URL...]
+
+yt-dlp: error: You must provide at least one URL.
+Type yt-dlp --help to see a list of all options.

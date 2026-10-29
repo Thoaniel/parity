@@ -1,0 +1,16 @@
+{
+  "format": 1,
+  "input": {
+    "name": "gen-flag--mtime",
+    "args": [
+      "--mtime"
+    ]
+  },
+  "exit": {
+    "code": 2
+  },
+  "duration_ms": 152,
+  "files": {},
+  "recorded_with": "/usr/bin/yt-dlp",
+  "parity_version": "0.1.0"
+}

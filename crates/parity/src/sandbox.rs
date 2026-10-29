@@ -1,6 +1,6 @@
 //! Runs one case of a program and observes it: stdout, stderr, how it exited and every file in its working folder
-//! afterwards. The working folder is a fresh temporary folder; inside bubblewrap it is mounted at `/work`, and
-//! outside the host path is rewritten to `/work`, so recordings look the same either way.
+//! afterwards. The working folder is a fresh temporary folder; inside bubblewrap it is mounted at `/tmp/work` (the read-only root has no room for a new top-level folder), and
+//! outside the host path is rewritten to `/tmp/work`, so recordings look the same either way.
 
 use crate::project::{CaseInput, Isolation, Program, SandboxConfig, check_relative};
 use anyhow::{Context, Result, bail};
@@ -11,7 +11,7 @@ use std::path::{Path, PathBuf};
 use std::process::{Child, Command, Stdio};
 use std::time::{Duration, Instant};
 
-pub const WORK: &str = "/work";
+pub const WORK: &str = "/tmp/work";
 
 #[derive(Clone, Copy, Debug, Deserialize, Serialize, PartialEq, Eq)]
 #[serde(rename_all = "snake_case")]

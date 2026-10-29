@@ -36,7 +36,7 @@ parity track -C jq --install-timer   # daily: new upstream release → re-record
 
 ## Stages
 
-**Record and replay.** Each run gets a fresh working folder (mounted at `/work`), a cleared environment and, with
+**Record and replay.** Each run gets a fresh working folder (mounted at `/tmp/work`), a cleared environment and, with
 bubblewrap, a read-only system and no network. These are defaults for reproducible recordings, not limits:
 `isolation = "none"`, `network = true`, `inherit_env = true` run against the real system. Nondeterminism is hidden
 only by normalizers you declare. Recordings that differ from your own cases.toml need `--trust-corpus`.

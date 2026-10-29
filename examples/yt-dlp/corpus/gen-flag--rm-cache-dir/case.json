@@ -1,0 +1,16 @@
+{
+  "format": 1,
+  "input": {
+    "name": "gen-flag--rm-cache-dir",
+    "args": [
+      "--rm-cache-dir"
+    ]
+  },
+  "exit": {
+    "code": 0
+  },
+  "duration_ms": 158,
+  "files": {},
+  "recorded_with": "/usr/bin/yt-dlp",
+  "parity_version": "0.1.0"
+}

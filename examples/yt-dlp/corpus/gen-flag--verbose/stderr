@@ -1,0 +1,16 @@
+[debug] Command-line config: ['--ignore-config', '--no-cache-dir', '--verbose']
+[debug] Encodings: locale UTF-8, fs utf-8, pref UTF-8, out utf-8 (No ANSI), error utf-8 (No ANSI), screen utf-8 (No ANSI)
+[debug] yt-dlp version stable@2026.08.19 from yt-dlp/yt-dlp [594bd50c2]
+[debug] Python 3.14.8 (CPython x86_64 64bit) - Linux-7.2.8-9-omarchy-x86_64-with-glibc2.44 (OpenSSL 3.6.5 29 Sep 2026, glibc 2.44)
+[debug] exe versions: ffmpeg 9.0.2 (setts), ffprobe 9.0.2
+[debug] Optional libraries: certifi-2026.10.19, pycrypto-4.1.0, requests-2.34.2, sqlite3-3.54.0, urllib3-2.8.0, yt_dlp_ejs-0.8.0
+[debug] JS runtimes: deno-2.9.8
+[debug] Proxy map: {}
+[debug] Request Handlers: urllib, requests
+[debug] Plugin directories: none
+[debug] Loaded 1744 extractors
+
+Usage: yt-dlp [OPTIONS] URL [URL...]
+
+yt-dlp: error: You must provide at least one URL.
+Type yt-dlp --help to see a list of all options.

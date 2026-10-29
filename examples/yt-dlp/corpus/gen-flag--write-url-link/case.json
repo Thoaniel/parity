@@ -1,0 +1,16 @@
+{
+  "format": 1,
+  "input": {
+    "name": "gen-flag--write-url-link",
+    "args": [
+      "--write-url-link"
+    ]
+  },
+  "exit": {
+    "code": 2
+  },
+  "duration_ms": 163,
+  "files": {},
+  "recorded_with": "/usr/bin/yt-dlp",
+  "parity_version": "0.1.0"
+}

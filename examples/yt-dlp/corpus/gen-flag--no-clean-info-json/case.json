@@ -1,0 +1,16 @@
+{
+  "format": 1,
+  "input": {
+    "name": "gen-flag--no-clean-info-json",
+    "args": [
+      "--no-clean-info-json"
+    ]
+  },
+  "exit": {
+    "code": 2
+  },
+  "duration_ms": 162,
+  "files": {},
+  "recorded_with": "/usr/bin/yt-dlp",
+  "parity_version": "0.1.0"
+}
