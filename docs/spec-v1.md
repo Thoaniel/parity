@@ -119,6 +119,8 @@ of third-party media are never committed.
 - Open source and public from day one (MIT OR Apache-2.0), developed in the open.
 - Later: GUI apps (screenshot diff), Electron apps.
 
-## Not included (v1)
-Kernel modules, drivers and anything that writes to hardware; proprietary software where the licence forbids
-reverse engineering; uploading recordings anywhere.
+## Scope
+No built-in limits. Any program, runtime or target is in scope: kernel modules, drivers, hardware tools,
+closed-source software, GUIs. Every default (isolation, no network, cleared environment) exists only to make
+recordings reproducible and can be switched off per project (`isolation = "none"` runs against the real system).
+Parity does not police what it is pointed at; licences and terms are the user's call.
