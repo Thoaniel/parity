@@ -1,0 +1,17 @@
+[package]
+name = "yt-dlp-rs"
+version = "0.1.0"
+edition = "2024"
+
+[[bin]]
+name = "yt-dlp"
+path = "src/main.rs"
+
+[dependencies]
+
+[profile.release]
+lto = "thin"
+codegen-units = 1
+
+# Its own workspace, so a project inside another Cargo workspace still builds alone.
+[workspace]

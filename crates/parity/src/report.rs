@@ -21,6 +21,38 @@ pub struct Report {
     pub cases: Vec<CaseResult>,
 }
 
+impl CaseResult {
+    /// This case's divergences, each as a unified diff of at most `max_diff_lines` lines.
+    pub fn render(&self, max_diff_lines: usize) -> String {
+        let mut s = String::new();
+        let _ = writeln!(s, "✗ {}", self.name);
+        for d in &self.divergences {
+            let _ = writeln!(s, "  {}:", d.field);
+            let diff = TextDiff::from_lines(&d.expected, &d.actual)
+                .unified_diff()
+                .context_radius(2)
+                .header("original", "candidate")
+                .to_string();
+            let lines: Vec<&str> = diff.lines().collect();
+            for line in lines.iter().take(max_diff_lines) {
+                let _ = writeln!(s, "    {line}");
+            }
+            if lines.len() > max_diff_lines {
+                let _ = writeln!(s, "    … {} more lines", lines.len() - max_diff_lines);
+            }
+        }
+        s
+    }
+
+    /// How much differs: the size of every divergent field, to hand an agent the smallest gaps first.
+    pub fn gap(&self) -> usize {
+        self.divergences
+            .iter()
+            .map(|d| d.expected.len().max(d.actual.len()))
+            .sum()
+    }
+}
+
 impl Report {
     pub fn matching(&self) -> usize {
         self.cases
@@ -41,22 +73,7 @@ impl Report {
         let _ = writeln!(s, "Parity: {} against {}", self.candidate, self.original);
         let _ = writeln!(s, "{ok}/{total} cases match ({pct:.1} %)\n");
         for case in self.cases.iter().filter(|c| !c.divergences.is_empty()) {
-            let _ = writeln!(s, "✗ {}", case.name);
-            for d in &case.divergences {
-                let _ = writeln!(s, "  {}:", d.field);
-                let diff = TextDiff::from_lines(&d.expected, &d.actual)
-                    .unified_diff()
-                    .context_radius(2)
-                    .header("original", "candidate")
-                    .to_string();
-                let lines: Vec<&str> = diff.lines().collect();
-                for line in lines.iter().take(max_diff_lines) {
-                    let _ = writeln!(s, "    {line}");
-                }
-                if lines.len() > max_diff_lines {
-                    let _ = writeln!(s, "    … {} more lines", lines.len() - max_diff_lines);
-                }
-            }
+            s.push_str(&case.render(max_diff_lines));
         }
         let original: u64 = self.cases.iter().map(|c| c.original_ms).sum();
         let candidate: u64 = self.cases.iter().map(|c| c.candidate_ms).sum();
