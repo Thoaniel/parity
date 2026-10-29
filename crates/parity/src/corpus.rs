@@ -8,7 +8,7 @@
 //! corpus/<case>/files/...   the working folder after the run
 //! ```
 
-use crate::project::{CaseInput, check_relative};
+use crate::project::{CaseInput, check_case_name, check_relative};
 use crate::sandbox::{Exit, Observed};
 use anyhow::{Context, Result, bail};
 use serde::{Deserialize, Serialize};
@@ -91,6 +91,16 @@ pub fn read(dir: &Path) -> Result<(CaseRecord, Observed)> {
             record.format
         );
     }
+    // A corpus can come from anyone: its input is checked like cases.toml before anything runs from it.
+    check_case_name(&record.input.name)
+        .and_then(|()| {
+            record
+                .input
+                .files
+                .keys()
+                .try_for_each(|f| check_relative(f))
+        })
+        .with_context(|| format!("{}/case.json", dir.display()))?;
     let mut files = BTreeMap::new();
     for (path, hash) in &record.files {
         check_relative(path)?;
@@ -165,7 +175,11 @@ mod tests {
             files: [("a".to_string(), b"1".to_vec())].into(),
             duration: Duration::ZERO,
         };
-        write(dir.path(), &CaseInput::default(), &observed, "x").unwrap();
+        let input = CaseInput {
+            name: "a".into(),
+            ..Default::default()
+        };
+        write(dir.path(), &input, &observed, "x").unwrap();
         std::fs::write(dir.path().join("files/a"), "2").unwrap();
         assert!(read(dir.path()).is_err());
     }

@@ -2,7 +2,7 @@
 //! afterwards. The working folder is a fresh temporary folder; inside bubblewrap it is mounted at `/work`, and
 //! outside the host path is rewritten to `/work`, so recordings look the same either way.
 
-use crate::project::{CaseInput, Isolation, Program, SandboxConfig};
+use crate::project::{CaseInput, Isolation, Program, SandboxConfig, check_relative};
 use anyhow::{Context, Result, bail};
 use serde::{Deserialize, Serialize};
 use std::collections::BTreeMap;
@@ -47,7 +47,9 @@ pub fn run(program: &Program, case: &CaseInput, cfg: &SandboxConfig) -> Result<O
     let exe = resolve(&program.program)?;
     let dir = tempfile::Builder::new().prefix("parity-work-").tempdir()?;
     let work = dir.path().to_path_buf();
+    // The work folder is new and fixtures are plain files, so a checked relative path cannot leave it.
     for (path, content) in &case.files {
+        check_relative(path)?;
         let target = work.join(path);
         if let Some(parent) = target.parent() {
             std::fs::create_dir_all(parent)?;
